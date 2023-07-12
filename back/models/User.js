@@ -1,9 +1,14 @@
 const db = require("../config/db");
 const Sequelize = require("sequelize");
+const bcrypt = require("bcrypt");
 
-class Users extends Sequelize.Model {}
+class User extends Sequelize.Model {
+  hash(password, salt) {
+    return bcrypt.hash(password, salt);
+  }
+}
 
-Users.init(
+User.init(
   {
     name: {
       type: Sequelize.STRING,
@@ -25,15 +30,14 @@ Users.init(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    favorites: {
-      type: Sequelize.ARRAY,
-      
-    },
-    appointments: {
-      type: Sequelize.ARRAY,
-      
-    },
-    
+    // favorites: {
+    //   type: Sequelize.ARRAY,
+    //   defaultValue: [],
+    // },
+    // appointments: {
+    //   type: Sequelize.ARRAY,
+    //},
+
     salt: {
       type: Sequelize.STRING,
     },
@@ -41,4 +45,13 @@ Users.init(
   { sequelize: db, modelName: "user" }
 );
 
-module.exports = Users;
+User.addHook("beforeCreate", (user) => {
+  const salt = bcrypt.genSaltSync(8);
+  user.salt = salt;
+
+  return user.hash(user.password, user.salt).then((hash) => {
+    user.password = hash;
+  });
+});
+
+module.exports = User;
