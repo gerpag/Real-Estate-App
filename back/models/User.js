@@ -32,10 +32,11 @@ User.init(
     },
     // favorites: {
     //   type: Sequelize.ARRAY,
+    //   defaultValue: [],
     // },
     // appointments: {
     //   type: Sequelize.ARRAY,
-    // },
+    //},
 
     salt: {
       type: Sequelize.STRING,
@@ -50,7 +51,6 @@ User.addHook("beforeCreate", (user) => {
 
   return user.hash(user.password, user.salt).then((hash) => {
     user.password = hash;
-    console.log("PASSWORD", user.password, "SALT", user.salt);
   });
 });
 
