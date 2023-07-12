@@ -7,8 +7,6 @@ import { useNavigate } from "react-router";
 import { Grid } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 
-
-
 const Register = () => {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
@@ -20,7 +18,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const user = await axios.post(
-        "http://localhost:3000/api/v1/users/register",
+        "http://localhost:3000/api/v1/user/register",
         {
           name: name,
           lastname: lastname,
@@ -31,6 +29,7 @@ const Register = () => {
       alert(`User ${user.data.name} ${user.data.lastname} create.`);
       navigate("/login");
     } catch (error) {
+      console.log(error);
       alert("User allready exist");
     }
   };
@@ -49,7 +48,6 @@ const Register = () => {
             maxWidth: 450,
             padding: "20px 5px",
             margin: "0 auto",
-           
           }}
         >
           <h1 style={{ textAlign: "center", color: "red" }}>Registro</h1>
