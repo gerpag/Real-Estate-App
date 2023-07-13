@@ -10,10 +10,7 @@ import { useNavigate } from "react-router";
 import { Grid } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 
-
-
 const Login = () => {
- 
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -34,12 +31,10 @@ const Login = () => {
         }
       );
       alert("Login successful");
-    
+
       navigate("/");
-  
     } catch (error) {
       alert("Could not login");
-    
     }
   };
 
@@ -58,10 +53,8 @@ const Login = () => {
             maxWidth: 450,
             padding: "20px 5px",
             margin: "0 auto",
-          
           }}
         >
-         
           <CardContent>
             <Box onSubmit={handleLoginSubmit} component="form">
               <Grid container spacing={1}>
@@ -78,10 +71,8 @@ const Login = () => {
                     value={loginEmail}
                     multiline
                     maxRows={4}
-                   
                   />
                 </Grid>
-
                 <Grid item xs={12}>
                   <TextField
                     margin="normal"
@@ -95,20 +86,11 @@ const Login = () => {
                     onChange={(e) => setLoginPassword(e.target.value)}
                     value={loginPassword}
                     maxRows={4}
-                  
                   />
                 </Grid>
                 ¿Olvidaste tu contraseña?
                 <Grid item xs={12}>
-                  <Button
-                    sx={{
-                    
-                      
-                    }}
-                    type="submit"
-                    variant="outlined"
-                    
-                  >
+                  <Button sx={{}} type="submit" variant="outlined">
                     Login
                   </Button>
                 </Grid>
@@ -122,7 +104,6 @@ const Login = () => {
 };
 
 export default Login;
-
 
 /*
 
