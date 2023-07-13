@@ -24,7 +24,10 @@ exports.loginUser = async (req, res) => {
       return res.sendStatus(401);
     }
 
-    const isValid = await userService.validateUserPassword(user, password);
+    const isValid = await userService.validateUserPassword(
+      password,
+      user.password
+    );
     if (!isValid) {
       return res.sendStatus(401);
     }
@@ -32,7 +35,6 @@ exports.loginUser = async (req, res) => {
     const payload = {
       email: user.email,
       name: user.name,
-      password: user.password,
     };
     const token = userService.generateToken(payload);
 

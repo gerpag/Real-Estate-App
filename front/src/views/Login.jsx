@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/v1/user/login",
+        "http://localhost:3001/api/user/login",
         {
           email: loginEmail,
           password: loginPassword,
@@ -32,7 +32,7 @@ const Login = () => {
       );
       alert("Login successful");
 
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       alert("Could not login");
     }
