@@ -7,8 +7,6 @@ import { useNavigate } from "react-router";
 import { Grid } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 
-
-
 const Register = () => {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
@@ -49,7 +47,6 @@ const Register = () => {
             maxWidth: 450,
             padding: "20px 5px",
             margin: "0 auto",
-           
           }}
         >
           <h1 style={{ textAlign: "center", color: "red" }}>Registro</h1>

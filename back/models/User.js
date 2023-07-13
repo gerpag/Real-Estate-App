@@ -6,6 +6,11 @@ class User extends Sequelize.Model {
   hash(password, salt) {
     return bcrypt.hash(password, salt);
   }
+  validatePassword(password) {
+    return this.hash(password, this.salt).then(
+      (newHash) => newHash === this.password
+    );
+  }
 }
 
 User.init(
@@ -30,10 +35,10 @@ User.init(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
- //    favorites: {
-  //    type: Sequelize.ARRAY(Sequelize.NUMBER),
-  //    defaultValue: [],
-//   },
+    //    favorites: {
+    //    type: Sequelize.ARRAY(Sequelize.NUMBER),
+    //    defaultValue: [],
+    //   },
     // appointments: {
     //   type: Sequelize.ARRAY,
     //},
