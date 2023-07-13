@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
 import axios from "axios";
-
+import { setUser } from "../state/user";
 import TextField from "@mui/material/TextField";
 
 import Box from "@mui/material/Box";
@@ -11,6 +11,7 @@ import { Grid } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -30,9 +31,12 @@ const Login = () => {
           credentials: "include",
         }
       );
-      alert("Login successful");
 
-      navigate("/home");
+      alert("Login successful");
+      const userData = response.data;
+      dispatch(setUser(userData));
+
+      navigate("/");
     } catch (error) {
       alert("Could not login");
     }
@@ -104,19 +108,3 @@ const Login = () => {
 };
 
 export default Login;
-
-/*
-
- <Box
-        sx={{display:"flex",
-        flexWrap:"wa", 
-          width: "100vh",
-          height: "100vh",
-          backgroundColor: "red",
-        }}
-      /> 
-      <img src="https://casasinhaus.com/wp-content/uploads/2021/10/casas-prefabricadas-valencia-fachada-1320x853.jpg" width= {"300px"}
-          height= {"300px"}></img>
-
-
-*/

@@ -5,15 +5,35 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { setUser, userInitialState } from "../state/user";
+import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-
+  const handleLogout = () => {
+    axios
+      .get("http://localhost:3001/api/user/logout", {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        credentials: "include",
+      })
+      .then((res) => res.data)
+      .then(() => {
+        dispatch(setUser(userInitialState));
+        localStorage.removeItem("reduxState");
+        console.log(user);
+        navigate("/");
+      });
+  };
 
   return (
-    <Box sx={{ flexGrow: 1, }}>
-      <AppBar position="static" sx={{ backgroundColor:"red" }}>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{ backgroundColor: "red" }}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -21,18 +41,33 @@ function Navbar() {
             sx={{ flexGrow: 1, fontFamily: "Montserrat" }}
           >
             HOD.
-          </Typography >
-          <Button color="inherit"  >En Venta</Button>
-          <Button color="inherit"  >Alquiler</Button>
-          <Button color="inherit"  >Agenda tu visita</Button>
-          <Button color="inherit"  >Nuestros servicios</Button>
-          <Button color="inherit"  >Mi perfil</Button>
-          <Button color="inherit"  >Nosotros</Button>
-          <Button color="inherit"  >Contacto</Button>
-          <Button color="inherit"  to={"/login"}
-                  component={Link}>Ingresar</Button>
-          <Button color="inherit"  to={"/register"}
-                  component={Link}>Registro</Button>
+          </Typography>
+          <Button color="inherit">Venta</Button>
+          <Button color="inherit">Alquiler</Button>
+
+          <Button color="inherit">Nuestros servicios</Button>
+
+          <Button color="inherit">Nosotros</Button>
+          <Button color="inherit">Contacto</Button>
+
+          {user.email === null ? (
+            <>
+              <Button color="inherit" to={"/login"} component={Link}>
+                Ingresar
+              </Button>
+              <Button color="inherit" to={"/register"} component={Link}>
+                Registro
+              </Button>{" "}
+            </>
+          ) : (
+            <>
+              <Button color="inherit">Agenda tu visita</Button>
+              <Button color="inherit">Mi perfil</Button>
+              <Button color="inherit" onClick={handleLogout}>
+                Salir
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
