@@ -17,8 +17,8 @@ async function findUserByEmail(email) {
   });
 }
 
-async function validateUserPassword(user, password) {
-  return bcrypt.compare(password, user.password);
+async function validateUserPassword(password, secondPassword) {
+  return bcrypt.compare(password, secondPassword);
 }
 
 function generateToken(payload) {
