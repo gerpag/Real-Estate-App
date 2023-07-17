@@ -1,4 +1,4 @@
-const userService = require("../service/user.service");
+const userService = require("../services/user.service");
 
 exports.registerUser = async (req, res) => {
   try {
@@ -64,4 +64,3 @@ exports.logout = (req, res) => {
     return res.status(500).json({ error: "Logout failed" });
   }
 };
-

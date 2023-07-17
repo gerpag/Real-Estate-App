@@ -17,6 +17,10 @@ async function findUserByEmail(email) {
   });
 }
 
+async function getUserById(userId) {
+  return User.findByPk(userId);
+}
+
 async function validateUserPassword(password, secondPassword) {
   return bcrypt.compare(password, secondPassword);
 }
@@ -28,6 +32,7 @@ function generateToken(payload) {
 module.exports = {
   registerUser,
   findUserByEmail,
+  getUserById,
   validateUserPassword,
   generateToken,
 };
