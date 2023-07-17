@@ -1,7 +1,7 @@
 const favoritesService = require("../services/favorites.service");
 const userService = require("../services/user.service");
 
-exports.getAllFavorites = async (req, res) => {
+exports.getUserFavorites = async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -34,5 +34,18 @@ exports.addFavorite = async (req, res) => {
     res.json(favorite);
   } catch (error) {
     res.status(500).json({ message: "Error al agregar a lista de favoritos " });
+  }
+};
+
+exports.removeFavorite = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const favorite = await favoritesService.removeFavorite(id);
+    res.sendStatus(204).json({ message: "Favorito eliminado correctamente" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error al eliminar de la lista de favoritos " });
   }
 };
