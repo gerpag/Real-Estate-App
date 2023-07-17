@@ -36,6 +36,15 @@ const Login = () => {
       const userData = response.data;
       dispatch(setUser(userData));
 
+      // Redirige a la ruta "/me" en el backend
+      const meResponse = await axios.get("http://localhost:3001/api/user/me", {
+        withCredentials: true,
+        credentials: "include",
+      });
+
+      const meData = meResponse.data;
+      dispatch(setUser(meData));
+
       navigate("/");
     } catch (error) {
       alert("Could not login");
