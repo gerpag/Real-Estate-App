@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { setUser, userInitialState } from "../state/user";
+import { setUser } from "../state/user";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,6 +14,7 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(user);
 
   const handleLogout = () => {
     axios
@@ -22,12 +23,12 @@ function Navbar() {
         withCredentials: true,
         credentials: "include",
       })
-      .then((res) => res.data)
       .then(() => {
-        dispatch(setUser(userInitialState));
-        localStorage.removeItem("reduxState");
-        console.log(user);
+        dispatch(setUser(null));
         navigate("/");
+      })
+      .catch((error) => {
+        console.error("Logout failed", error);
       });
   };
 
@@ -44,27 +45,25 @@ function Navbar() {
           </Typography>
           <Button color="inherit">Venta</Button>
           <Button color="inherit">Alquiler</Button>
-
           <Button color="inherit">Nuestros servicios</Button>
-
           <Button color="inherit">Nosotros</Button>
           <Button color="inherit">Contacto</Button>
 
-          {user.email === null ? (
+          {user ? (
+            <>
+              <Button color="inherit">Agenda tu visita</Button>
+              <Button color="inherit">Mi perfil</Button>
+              <Button color="inherit" onClick={handleLogout}>
+                Salir
+              </Button>
+            </>
+          ) : (
             <>
               <Button color="inherit" to={"/login"} component={Link}>
                 Ingresar
               </Button>
               <Button color="inherit" to={"/register"} component={Link}>
                 Registro
-              </Button>{" "}
-            </>
-          ) : (
-            <>
-              <Button color="inherit">Agenda tu visita</Button>
-              <Button color="inherit">Mi perfil</Button>
-              <Button color="inherit" onClick={handleLogout}>
-                Salir
               </Button>
             </>
           )}
@@ -73,4 +72,5 @@ function Navbar() {
     </Box>
   );
 }
+
 export default Navbar;
