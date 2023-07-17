@@ -2,12 +2,13 @@ const userService = require("../service/user.service");
 
 exports.registerUser = async (req, res) => {
   try {
-    const { name, lastname, email, password } = req.body;
+    const { name, lastname, email, password, admin } = req.body;
     const user = await userService.registerUser(
       name,
       lastname,
       email,
-      password
+      password,
+      admin
     );
     res.status(201).json(user);
   } catch (error) {
@@ -35,6 +36,7 @@ exports.loginUser = async (req, res) => {
     const payload = {
       email: user.email,
       name: user.name,
+      admin:user.admin
     };
     const token = userService.generateToken(payload);
 

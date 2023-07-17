@@ -2,9 +2,9 @@ const User = require("../models/User.model");
 const tokenService = require("../config/tokens");
 const bcrypt = require("bcrypt");
 
-async function registerUser(name, lastname, email, password) {
+async function registerUser(name, lastname, email, password,admin) {
   try {
-    const user = await User.create({ name, lastname, email, password });
+    const user = await User.create({ name, lastname, email, password,admin });
     return user;
   } catch (error) {
     throw new Error(error.message);

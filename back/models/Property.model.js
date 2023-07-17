@@ -22,9 +22,7 @@ Property.init(
     },
     imgsUrl: {
       type: Sequelize.STRING,
-      validate: {
-        isUrl: true,
-      },
+      
     },
     bathrooms: {
       type: Sequelize.INTEGER,
