@@ -2,9 +2,9 @@ const User = require("../models/User.model");
 const tokenService = require("../config/tokens");
 const bcrypt = require("bcrypt");
 
-async function registerUser(name, lastname, email, password,admin) {
+async function registerUser(name, lastname, email, password, admin) {
   try {
-    const user = await User.create({ name, lastname, email, password,admin });
+    const user = await User.create({ name, lastname, email, password, admin });
     return user;
   } catch (error) {
     throw new Error(error.message);
@@ -37,6 +37,23 @@ async function getUserProfile(userId) {
     },
   });
   return userProfile;
+}
+
+async function updateUserProfile(userId) {
+  try {
+    const user = User.findByPk(userId);
+
+    //ver tema foto con Cloudinary
+
+    user.name = profil.data.name;
+    user.lastname = profil.data.lastname;
+    user.phone = profil.data.phone;
+    user.password = profil.data.password;
+
+    return user;
+  } catch (error) {
+    throw new Error("Error al actualizar el perfil del usuario");
+  }
 }
 
 module.exports = {

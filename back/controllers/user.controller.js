@@ -37,7 +37,7 @@ exports.loginUser = async (req, res) => {
       email: user.email,
       name: user.name,
       id: user.id,
-      admin:user.admin
+      admin: user.admin,
     };
     const token = userService.generateToken(payload);
 
@@ -81,5 +81,20 @@ exports.getUserProfile = async (req, res) => {
   } catch (error) {
     console.error("Error al obtener el perfil de usuario:", error);
     res.status(500).json({ message: "Error al obtener el perfil de usuario" });
+  }
+};
+
+exports.updateUserProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const profileData = req.body;
+
+    const updatedProfile = await userService.updateUserProfile(id, profileData);
+    res.json(updatedProfile);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Ha ocurrido un error al actualizar el perfil" });
   }
 };
