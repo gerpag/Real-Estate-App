@@ -49,7 +49,10 @@ function Navbar() {
           {user && user.admin == true ? (
             <>
               <Button color="inherit">Propiedades</Button>
-              
+              <Button color="inherit" to={"/adminSubmit"} component={Link}>
+                Nueva propiedad{" "}
+              </Button>
+              <Button color="inherit">Usuarios</Button>
             </>
           ) : (
             <>

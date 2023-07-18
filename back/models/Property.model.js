@@ -22,7 +22,6 @@ Property.init(
     },
     imgsUrl: {
       type: Sequelize.STRING,
-      
     },
     bathrooms: {
       type: Sequelize.INTEGER,
@@ -33,7 +32,12 @@ Property.init(
     operation: {
       type: Sequelize.TEXT,
     },
-   
+    address: {
+      type: Sequelize.TEXT,
+    },
+    ambientes: {
+      type: Sequelize.INTEGER,
+    },
   },
   { sequelize: db, modelName: "property" }
 );
