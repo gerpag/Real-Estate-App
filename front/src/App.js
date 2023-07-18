@@ -6,8 +6,12 @@ import Home from "./views/Home";
 import Navbar from "./components/Navbar";
 import Login from "./views/Login";
 import Register from "./views/Register";
+
+import AdminSubmit from "./views/AdminSubmit";
+
 import { useDispatch } from "react-redux";
 import { setUser } from "../src/state/user";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +25,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/adminSubmit" element={<AdminSubmit />}></Route>
       </Routes>
     </>
   );

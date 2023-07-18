@@ -34,7 +34,10 @@ function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "red" }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: user && user.admin ? "blue" : "red" }}
+      >
         <Toolbar>
           <Typography
             variant="h6"
@@ -43,15 +46,30 @@ function Navbar() {
           >
             HOD.
           </Typography>
-          <Button color="inherit">Venta</Button>
-          <Button color="inherit">Alquiler</Button>
-          <Button color="inherit">Nuestros servicios</Button>
-          <Button color="inherit">Nosotros</Button>
-          <Button color="inherit">Contacto</Button>
+
+          {user && user.admin == true ? (
+            <>
+              <Button color="inherit">Propiedades</Button>
+              <Button color="inherit" to={"/adminSubmit"} component={Link}>
+                Nueva propiedad{" "}
+              </Button>
+              <Button color="inherit">Usuarios</Button>
+            </>
+          ) : (
+            <>
+              <Button color="inherit">Venta</Button>
+              <Button color="inherit">Alquiler</Button>
+              <Button color="inherit">Nuestros servicios</Button>
+              <Button color="inherit">Nosotros</Button>
+              <Button color="inherit">Contacto</Button>{" "}
+            </>
+          )}
+          {user && user.admin == false ? (
+            <Button color="inherit">Agenda tu visita</Button>
+          ) : undefined}
 
           {user ? (
             <>
-              <Button color="inherit">Agenda tu visita</Button>
               <Button color="inherit">Mi perfil</Button>
               <Button color="inherit" onClick={handleLogout}>
                 Salir
