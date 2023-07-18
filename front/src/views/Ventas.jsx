@@ -5,12 +5,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 
-function Propiedad() {
+function Venta() {
   const [property, setProperty] = useState(null);
   const data = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/api/property/all"
+        "http://localhost:3001/api/property/category/Venta"
       );
       const data = response.data;
 
@@ -94,4 +94,4 @@ function Propiedad() {
   );
 }
 
-export default Propiedad;
+export default Venta;

@@ -57,8 +57,8 @@ function Navbar() {
             </>
           ) : (
             <>
-              <Button color="inherit">Venta</Button>
-              <Button color="inherit">Alquiler</Button>
+              <Button color="inherit" to={"/venta"} component={Link}>Venta</Button>
+              <Button color="inherit" to={"/alquiler"} component={Link}>Alquiler</Button>
               <Button color="inherit">Nuestros servicios</Button>
               <Button color="inherit">Nosotros</Button>
               <Button color="inherit">Contacto</Button>{" "}
