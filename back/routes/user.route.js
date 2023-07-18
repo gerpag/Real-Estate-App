@@ -20,12 +20,12 @@ userRouter.get(
   validateUserProfileAccess,
   userController.getUserProfile
 );
-// userRouter.put(
-//   "/:id/profile",
-//   validateAuth,
-//   validateUserProfileAccess,
-//   userController.updateUserProfile
-// );
+userRouter.put(
+  "/:id/profile",
+  validateAuth,
+  validateUserProfileAccess,
+  userController.updateUserProfile
+);
 // userRouter.delete(
 //   "/:id/profile",
 //   validateAuth,
