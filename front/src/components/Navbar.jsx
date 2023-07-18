@@ -49,16 +49,16 @@ function Navbar() {
 
           {user && user.admin == true ? (
             <>
-              <Button color="inherit">Propiedades</Button>
+              <Button color="inherit" to={"/property"} component={Link}>Propiedades</Button>
               <Button color="inherit" to={"/adminSubmit"} component={Link}>
-                Nueva propiedad{" "}
+                Nueva propiedad
               </Button>
               <Button color="inherit">Usuarios</Button>
             </>
           ) : (
             <>
-              <Button color="inherit">Venta</Button>
-              <Button color="inherit">Alquiler</Button>
+              <Button color="inherit" to={"/venta"} component={Link}>Venta</Button>
+              <Button color="inherit" to={"/alquiler"} component={Link}>Alquiler</Button>
               <Button color="inherit">Nuestros servicios</Button>
               <Button color="inherit">Nosotros</Button>
               <Button color="inherit">Contacto</Button>{" "}
