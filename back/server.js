@@ -11,9 +11,6 @@ const port = 3001;
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
@@ -25,7 +22,3 @@ db.sync({ force: false }).then(() => {
     console.log(`Listening on port ${port}`);
   });
 });
-
-
-
-
