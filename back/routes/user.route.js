@@ -26,11 +26,5 @@ userRouter.put(
   validateUserProfileAccess,
   userController.updateUserProfile
 );
-// userRouter.delete(
-//   "/:id/profile",
-//   validateAuth,
-//   validateUserProfileAccess,
-//   userController.deleteUserProfile
-// );
 
 module.exports = userRouter;
