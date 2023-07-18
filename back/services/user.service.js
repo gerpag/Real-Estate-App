@@ -17,6 +17,10 @@ async function findUserByEmail(email) {
   });
 }
 
+async function getUserById(userId) {
+  return User.findByPk(userId);
+}
+
 async function validateUserPassword(password, secondPassword) {
   return bcrypt.compare(password, secondPassword);
 }
@@ -25,9 +29,21 @@ function generateToken(payload) {
   return tokenService.generateToken(payload);
 }
 
+async function getUserProfile(userId) {
+  const userProfile = await User.findByPk(userId, {
+    attributes: {
+      exclude: ["password"],
+      include: ["name", "lastname", "email"],
+    },
+  });
+  return userProfile;
+}
+
 module.exports = {
   registerUser,
   findUserByEmail,
+  getUserById,
   validateUserPassword,
   generateToken,
+  getUserProfile,
 };

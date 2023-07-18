@@ -7,7 +7,6 @@ export const userInitialState = {
   email: null,
   lastname: null,
   admin: null,
- 
 };
 
 const reducerUser = createReducer(userInitialState, {
@@ -15,4 +14,3 @@ const reducerUser = createReducer(userInitialState, {
 });
 
 export default reducerUser;
-

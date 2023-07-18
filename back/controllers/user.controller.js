@@ -1,4 +1,4 @@
-const userService = require("../service/user.service");
+const userService = require("../services/user.service");
 
 exports.registerUser = async (req, res) => {
   try {
@@ -36,6 +36,7 @@ exports.loginUser = async (req, res) => {
     const payload = {
       email: user.email,
       name: user.name,
+      id: user.id,
       admin:user.admin
     };
     const token = userService.generateToken(payload);
@@ -67,3 +68,18 @@ exports.logout = (req, res) => {
   }
 };
 
+exports.getUserProfile = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userProfile = await userService.getUserProfile(id);
+    if (!userProfile) {
+      return res
+        .status(404)
+        .json({ message: "Perfil de usuario no encontrado" });
+    }
+    res.json(userProfile);
+  } catch (error) {
+    console.error("Error al obtener el perfil de usuario:", error);
+    res.status(500).json({ message: "Error al obtener el perfil de usuario" });
+  }
+};
