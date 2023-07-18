@@ -11,7 +11,7 @@ import AdminSubmit from "./views/AdminSubmit";
 
 import { useDispatch } from "react-redux";
 import { setUser } from "../src/state/user";
-
+import Property from "./views/Property";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/adminSubmit" element={<AdminSubmit />}></Route>
+        <Route path="/property" element={<Property />}></Route>
       </Routes>
     </>
   );
