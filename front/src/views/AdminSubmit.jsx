@@ -26,20 +26,23 @@ const AdminSubmit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const property = await axios.post("http://localhost:3001/api/admin/submit", {
-        address: address,
-        location: location,
-        ambientes: ambientes,
-        bathrooms: bathrooms,
-        price: price,
-        category: category,
-        description: description,
-        imgsUrl: imgsUrl,
-        surface: surface,
-        operation: operation,
-      });
+      const property = await axios.post(
+        "http://localhost:3001/api/admin/submit",
+        {
+          address: address,
+          location: location,
+          ambientes: ambientes,
+          bathrooms: bathrooms,
+          price: price,
+          category: category,
+          description: description,
+          imgsUrl: imgsUrl,
+          surface: surface,
+          operation: operation,
+        }
+      );
       alert(`Property ${property.data.address} created.`);
-      navigate("/");console.log(property.data)
+      navigate("/");
     } catch (error) {
       alert("Error");
     }
@@ -62,7 +65,6 @@ const AdminSubmit = () => {
             margin: "0 auto",
           }}
         >
-         
           <CardContent>
             <Box onSubmit={handleSubmit} component="form">
               <Grid container spacing={2}>
@@ -134,7 +136,7 @@ const AdminSubmit = () => {
                     variant="standard"
                   />
                 </Grid>
-               
+
                 <Grid item xs={12} sm={6}>
                   <TextField
                     margin="normal"
@@ -173,7 +175,8 @@ const AdminSubmit = () => {
                     variant="standard"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>Tipo de propiedad
+                <Grid item xs={12} sm={6}>
+                  Tipo de propiedad
                   <Select
                     margin="normal"
                     required
@@ -191,7 +194,8 @@ const AdminSubmit = () => {
                     <MenuItem value="Local">Local</MenuItem>
                   </Select>
                 </Grid>
-                <Grid item xs={12} sm={6}>Operacicon
+                <Grid item xs={12} sm={6}>
+                  Operacicon
                   <Select
                     margin="normal"
                     required

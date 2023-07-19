@@ -8,6 +8,8 @@ adminRouter.post("/submit",  adminController.submitAdmin);
 
 adminRouter.post("/:id/edit",);
 
-adminRouter.get("/delete/:id",);
+adminRouter.delete("/delete/:id",adminController.deleteAdmin);
+
+adminRouter.get("/allUser",adminController.getAllUser)
 
 module.exports = adminRouter;

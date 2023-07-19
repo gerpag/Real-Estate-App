@@ -35,7 +35,7 @@ function Alquiler() {
               component="img"
               height="100%"
               width="200"
-              image= {property.imgsUrl}
+              src={property.imgsUrl}
               sx={{ alignSelf: "flex-start", borderRight: "1px solid blue" }}
             />
             <CardContent sx={{ height: "100%" }}>

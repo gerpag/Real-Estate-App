@@ -82,8 +82,7 @@ const Login = () => {
                     autoFocus
                     onChange={(e) => setLoginEmail(e.target.value)}
                     value={loginEmail}
-                    multiline
-                    maxRows={4}
+                
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -98,7 +97,7 @@ const Login = () => {
                     autoComplete="current-password"
                     onChange={(e) => setLoginPassword(e.target.value)}
                     value={loginPassword}
-                    maxRows={4}
+                  
                   />
                 </Grid>
                 ¿Olvidaste tu contraseña?

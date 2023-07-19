@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 
-function Venta() {
+function Ventas() {
   const [property, setProperty] = useState(null);
   const data = async () => {
     try {
@@ -94,4 +94,4 @@ function Venta() {
   );
 }
 
-export default Venta;
+export default Ventas;
