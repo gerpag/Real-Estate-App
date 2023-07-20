@@ -53,7 +53,7 @@ function Navbar() {
               <Button color="inherit" to={"/adminSubmit"} component={Link}>
                 Nueva propiedad
               </Button>
-              <Button color="inherit">Usuarios</Button>
+              <Button color="inherit" to={"/allUser"} component={Link}>Usuarios</Button>
             </>
           ) : (
             <>

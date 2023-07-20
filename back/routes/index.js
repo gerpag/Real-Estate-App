@@ -5,7 +5,7 @@ const favoritesRouter = require("./favorites.route");
 
 const adminRouter = require("./admin.route")
 const propertyRouter = require("./property.route")
-const Property = require("../models/Property.model");
+
 router.use("/user", userRouter);
 router.use("/favorites", favoritesRouter);
 router.use("/admin",adminRouter)

@@ -14,6 +14,7 @@ import { setUser } from "../src/state/user";
 import Property from "./views/Property";
 import Venta from "./views/Ventas";
 import Alquiler from "./views/Alquiler"
+import AllUser from "./views/AllUser"
 
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
         <Route path="/property" element={<Property />}></Route>
         <Route path="/venta" element={<Venta />}></Route>
         <Route path="/alquiler" element={<Alquiler />}></Route>
+        <Route path="/allUser" element={<AllUser />}></Route>
+      
+
       </Routes>
     </>
   );

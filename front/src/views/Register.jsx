@@ -61,8 +61,6 @@ const Register = () => {
                     autoFocus
                     onChange={(e) => setName(e.target.value)}
                     value={name}
-                    multiline
-                    maxRows={4}
                     variant="standard"
                   />
                 </Grid>
@@ -77,8 +75,6 @@ const Register = () => {
                     autoFocus
                     onChange={(e) => setLastname(e.target.value)}
                     value={lastname}
-                    multiline
-                    maxRows={4}
                     variant="standard"
                   />
                 </Grid>
@@ -93,9 +89,17 @@ const Register = () => {
                     autoFocus
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
-                    multiline
-                    maxRows={4}
                     variant="standard"
+                    inputProps={{
+                      pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$",
+                      title: "Ingresa un correo electrónico válido",
+                    }}
+                    error={email && !/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)}
+                    helperText={
+                      email && !/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)
+                        ? "Ingresa un correo electrónico válido"
+                        : ""
+                    }
                   />
                 </Grid>
 
@@ -110,8 +114,7 @@ const Register = () => {
                     id="password"
                     autoComplete="current-password"
                     onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    maxRows={4}
+                    value={password}                   
                     variant="standard"
                   />
                 </Grid>
