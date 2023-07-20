@@ -20,7 +20,7 @@ const AdminSubmit = () => {
   const [imgsUrl, setImgsUrl] = useState("");
   const [surface, setSurface] = useState("");
   const [operation, setOperation] = useState("");
-
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

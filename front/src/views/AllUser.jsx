@@ -32,6 +32,17 @@ function Propiedad() {
     data();
   }, []);
 
+  const handleDelete = async (id) => {
+    
+    try {
+      await axios.delete(`http://localhost:3001/api/admin/user/delete/${id}`);
+     data()
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   return (
     <>
       {" "}
@@ -40,7 +51,9 @@ function Propiedad() {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>Nombre</TableCell>
                 <TableCell>Usuario</TableCell>
+                <TableCell>Citas</TableCell>
                 <TableCell>Favoritos</TableCell>
 
                 <TableCell> Eliminar Usuario</TableCell>
@@ -50,7 +63,11 @@ function Propiedad() {
             <TableBody>
               {user.map((user) => (
                 <TableRow key={user.id}>
+                  <TableCell>{`${user.lastname}, ${user.name}`}</TableCell>
                   <TableCell>{user.email}</TableCell>
+                  <TableCell> <Stack direction="row" spacing={2}>
+                      <Button variant="contained">Citas</Button>
+                    </Stack></TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={2}>
                       <Button variant="contained">Favoritos</Button>
@@ -59,7 +76,7 @@ function Propiedad() {
 
                   <TableCell>
                     <Stack direction="row" spacing={2}>
-                      <Button variant="contained">Delete</Button>
+                      <Button variant="contained"  onClick={() => handleDelete(user.id)}>Delete</Button>
                     </Stack>
                   </TableCell>
                   <TableCell>{user.admin == true ? "SI" : "NO"}</TableCell>
