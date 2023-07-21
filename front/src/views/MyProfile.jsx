@@ -29,7 +29,7 @@ function MyProfile() {
         })
         .then((response) => {
           setUserData(response.data);
-          console.log(userData.lastmame);
+          console.log(response.data);
         })
 
         .catch((error) => {
@@ -38,24 +38,18 @@ function MyProfile() {
     }
   }, [user]);
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setUserData({ ...userData, [name]: value });
-  //   console.log(userData);
-  // };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      [name]: value,
-    }));
+    setUserData({ ...userData, [name]: value });
   };
 
   const handleSaveChanges = () => {
-    // Aquí puedes realizar la lógica para guardar los cambios en el perfil del usuario
-
+    if (!userData.name || !userData.lastname || !userData.email) {
+      alert("Los campos Nombre, Apellido y Email son requeridos.");
+      return;
+    }
     axios
-      .put(`http://localhost:3001/api/user/${user.id}/profile`, userData, {
+      .put(`http://localhost:3001/api/user/${user.id}/profile-edit`, userData, {
         withCredentials: true,
         credentials: "include",
       })
@@ -103,7 +97,7 @@ function MyProfile() {
         <TextField
           label="Apellido"
           name="apellido"
-          value={userData.lastmame}
+          value={userData.lastname}
           onChange={handleInputChange}
           margin="normal"
           variant="outlined"
@@ -136,7 +130,7 @@ function MyProfile() {
         <TextField
           label="URL de Foto"
           name="foto"
-          value={userData.foto}
+          value={userData.img_url}
           onChange={handleInputChange}
           margin="normal"
           variant="outlined"

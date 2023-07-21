@@ -33,7 +33,7 @@ async function getUserProfile(userId) {
   const userProfile = await User.findByPk(userId, {
     attributes: {
       exclude: ["password"],
-      include: ["name", "lastname", "email"],
+      include: ["name", "lastname", "email", "phone", "img_url"],
     },
   });
   return userProfile;
@@ -44,7 +44,7 @@ async function updateUserProfile(userId, profileData) {
     const user = await User.findByPk(userId, {
       attributes: {
         exclude: ["password"],
-        include: ["name", "lastname", "email"],
+        include: ["name", "lastname", "email", "phone", "img_url"],
       },
     });
 
@@ -58,6 +58,7 @@ async function updateUserProfile(userId, profileData) {
     user.name = profileData.name;
     user.lastname = profileData.lastname;
     user.phone = profileData.phone;
+    user.img_url = profileData.img_url;
     user.password = profileData.password;
 
     await user.save();

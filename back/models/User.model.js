@@ -36,11 +36,12 @@ User.init(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    //favorites: {},
-    // appointments: {
-    //   type: Sequelize.ARRAY,
-    //},
-
+    img_url: {
+      type: Sequelize.STRING,
+    },
+    phone: {
+      type: Sequelize.STRING,
+    },
     salt: {
       type: Sequelize.STRING,
     },
