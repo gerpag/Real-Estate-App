@@ -16,8 +16,8 @@ function MyProfile() {
     lastname: "",
     email: "",
     phone: "",
-    contraseña: "",
-    foto: "",
+    password: "",
+    img_url: "",
   });
   console.log(userData);
   useEffect(() => {
@@ -120,7 +120,7 @@ function MyProfile() {
         />
         <TextField
           label="Contraseña"
-          name="contraseña"
+          name="password"
           type="password"
           value={userData.password}
           onChange={handleInputChange}
@@ -129,7 +129,7 @@ function MyProfile() {
         />
         <TextField
           label="URL de Foto"
-          name="foto"
+          name="img_url"
           value={userData.img_url}
           onChange={handleInputChange}
           margin="normal"
