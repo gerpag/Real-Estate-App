@@ -36,7 +36,7 @@ function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
-        sx={{ backgroundColor: user && user.admin ? "blue" : "red" }}
+        sx={{ backgroundColor: user?.admin ? "blue" : "red" }}
       >
         <Toolbar>
           <Typography

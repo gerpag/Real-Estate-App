@@ -11,10 +11,12 @@ import BedIcon from "@mui/icons-material/Bed";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,38 +87,44 @@ function PropertyDetails() {
           sx={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
-            marginTop: "auto", // Colocamos los botones en la parte inferior del contenedor
+            marginTop: "auto",
           }}
         >
+          {user?.admin ? null : (
+            <>
+              
+              <Button
+                variant="contained"
+                style={{
+                  border: "1px solid red",
+                  height: "100%",
+                  backgroundColor: "red",
+                }}
+              >
+                Favorito
+              </Button>
+              <Button
+                variant="contained"
+                style={{
+                  border: "1px solid red",
+                  height: "100%",
+                  backgroundColor: "red",
+                }}
+                type="submit"
+              >
+                Cita
+              </Button>
+              
+            </>
+          )}
           <Button
             variant="contained"
             style={{
-              border: "1px solid red",
+              border: user?.admin ? "1px solid blue" : "1px solid red",
               height: "100%",
-              backgroundColor: "red",
+              backgroundColor: user?.admin ? "blue" : "red",
             }}
-          >
-            Favorito
-          </Button>
-          <Button
-            variant="contained"
-            style={{
-              border: "1px solid red",
-              height: "100%",
-              backgroundColor: "red",
-            }}
-            type="submit"
-          >
-            Cita
-          </Button>
-          <Button
-            variant="contained"
-            style={{
-              border: "1px solid red",
-              height: "100%",
-              backgroundColor: "red",
-            }}
-            to={`/${property.operation}`}
+            to={user?.admin ? "/property" : `/${property.operation}`}
             component={Link}
           >
             volver
