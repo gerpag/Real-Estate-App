@@ -39,17 +39,28 @@ async function getUserProfile(userId) {
   return userProfile;
 }
 
-async function updateUserProfile(userId) {
+async function updateUserProfile(userId, profileData) {
   try {
-    const user = User.findByPk(userId);
+    const user = await User.findByPk(userId, {
+      attributes: {
+        exclude: ["password"],
+        include: ["name", "lastname", "email"],
+      },
+    });
 
-    //ver tema foto con Cloudinary
+    if (!user) {
+      throw new Error("Usuario no encontrado");
+    }
 
-    user.name = profil.data.name;
-    user.lastname = profil.data.lastname;
-    user.phone = profil.data.phone;
-    user.password = profil.data.password;
+    // Verificar tema de foto con Cloudinary
+    // ...
 
+    user.name = profileData.name;
+    user.lastname = profileData.lastname;
+    user.phone = profileData.phone;
+    user.password = profileData.password;
+
+    await user.save();
     return user;
   } catch (error) {
     throw new Error("Error al actualizar el perfil del usuario");
@@ -63,4 +74,5 @@ module.exports = {
   validateUserPassword,
   generateToken,
   getUserProfile,
+  updateUserProfile,
 };
