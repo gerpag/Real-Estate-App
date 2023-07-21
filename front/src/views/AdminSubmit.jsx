@@ -195,7 +195,7 @@ const AdminSubmit = () => {
                   </Select>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  Operacicon
+                  Operacion
                   <Select
                     margin="normal"
                     required

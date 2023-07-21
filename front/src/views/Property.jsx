@@ -80,8 +80,7 @@ function Property() {
     <>
       <div style={{ margin: "0 5%" }}>
         <Box display="flex" flexWrap="wrap">
-          {property &&
-            property.map((property, index) => (
+          {property?.map((property, index) => (
               <Card
                 key={property.id}
                 sx={{
