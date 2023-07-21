@@ -21,7 +21,7 @@ userRouter.get(
   userController.getUserProfile
 );
 userRouter.put(
-  "/:id/profile",
+  "/:id/profile-edit",
   validateAuth,
   validateUserProfileAccess,
   userController.updateUserProfile

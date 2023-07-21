@@ -13,15 +13,15 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../src/state/user";
 import Property from "./views/Property";
 import Venta from "./views/Ventas";
-import Alquiler from "./views/Alquiler"
-import AllUser from "./views/AllUser"
-
+import Alquiler from "./views/Alquiler";
+import AllUser from "./views/AllUser";
+import MyProfile from "./views/MyProfile";
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setUser(null));
-  }, []);
+  //const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(setUser(null));
+  // }, []);
   return (
     <>
       <Navbar />
@@ -34,8 +34,7 @@ function App() {
         <Route path="/venta" element={<Venta />}></Route>
         <Route path="/alquiler" element={<Alquiler />}></Route>
         <Route path="/allUser" element={<AllUser />}></Route>
-      
-
+        <Route path="/profile" element={<MyProfile />}></Route>
       </Routes>
     </>
   );

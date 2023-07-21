@@ -47,30 +47,40 @@ function Navbar() {
             HOD.
           </Typography>
 
-          {user && user.admin == true ? (
+          {user && user.admin ? (
             <>
-              <Button color="inherit" to={"/property"} component={Link}>Propiedades</Button>
+              <Button color="inherit" to={"/property"} component={Link}>
+                Propiedades
+              </Button>
               <Button color="inherit" to={"/adminSubmit"} component={Link}>
                 Nueva propiedad
               </Button>
-              <Button color="inherit" to={"/allUser"} component={Link}>Usuarios</Button>
+              <Button color="inherit" to={"/allUser"} component={Link}>
+                Usuarios
+              </Button>
             </>
           ) : (
             <>
-              <Button color="inherit" to={"/venta"} component={Link}>Venta</Button>
-              <Button color="inherit" to={"/alquiler"} component={Link}>Alquiler</Button>
+              <Button color="inherit" to={"/venta"} component={Link}>
+                Venta
+              </Button>
+              <Button color="inherit" to={"/alquiler"} component={Link}>
+                Alquiler
+              </Button>
               <Button color="inherit">Nuestros servicios</Button>
               <Button color="inherit">Nosotros</Button>
               <Button color="inherit">Contacto</Button>{" "}
             </>
           )}
-          {user && user.admin == false ? (
+          {user && user.admin === false ? (
             <Button color="inherit">Agenda tu visita</Button>
           ) : undefined}
 
           {user ? (
             <>
-              <Button color="inherit">Mi perfil</Button>
+              <Button color="inherit" to={"/profile"} component={Link}>
+                Mi perfil
+              </Button>
               <Button color="inherit" onClick={handleLogout}>
                 Salir
               </Button>

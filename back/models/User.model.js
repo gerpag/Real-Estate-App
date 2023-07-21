@@ -36,10 +36,7 @@ User.init(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    //    favorites: {
-    //    type: Sequelize.ARRAY(Sequelize.NUMBER),
-    //    defaultValue: [],
-    //   },
+    //favorites: {},
     // appointments: {
     //   type: Sequelize.ARRAY,
     //},
