@@ -12,14 +12,14 @@ function MyProfile() {
   const user = useSelector((state) => state.user);
 
   const [userData, setUserData] = useState({
-    nombre: "",
-    apellido: "",
+    name: "",
+    lastname: "",
     email: "",
-    telefono: "",
-    contraseña: "",
-    foto: "",
+    phone: "",
+    password: "",
+    img_url: "",
   });
-
+  console.log(userData);
   useEffect(() => {
     if (user) {
       axios
@@ -88,7 +88,7 @@ function MyProfile() {
       >
         <TextField
           label="Nombre"
-          name="nombre"
+          name="name"
           value={userData.name}
           onChange={handleInputChange}
           margin="normal"
@@ -96,7 +96,7 @@ function MyProfile() {
         />
         <TextField
           label="Apellido"
-          name="apellido"
+          name="lastname"
           value={userData.lastname}
           onChange={handleInputChange}
           margin="normal"
@@ -112,7 +112,7 @@ function MyProfile() {
         />
         <TextField
           label="Teléfono"
-          name="telefono"
+          name="phone"
           value={userData.phone}
           onChange={handleInputChange}
           margin="normal"
@@ -120,7 +120,7 @@ function MyProfile() {
         />
         <TextField
           label="Contraseña"
-          name="contraseña"
+          name="password"
           type="password"
           value={userData.password}
           onChange={handleInputChange}
@@ -129,7 +129,7 @@ function MyProfile() {
         />
         <TextField
           label="URL de Foto"
-          name="foto"
+          name="img_url"
           value={userData.img_url}
           onChange={handleInputChange}
           margin="normal"

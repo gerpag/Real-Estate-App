@@ -41,29 +41,27 @@ async function getUserProfile(userId) {
 
 async function updateUserProfile(userId, profileData) {
   try {
-    const user = await User.findByPk(userId, {
+    // Verificar tema de foto con Cloudinary
+
+    await User.update(
+      {
+        name: profileData.name,
+        phone: profileData.phone,
+        lastname: profileData.lastname,
+      },
+      { returning: true, where: { id: userId } }
+    );
+
+    const updatedUser = await User.findByPk(userId, {
       attributes: {
         exclude: ["password"],
         include: ["name", "lastname", "email", "phone", "img_url"],
       },
     });
 
-    if (!user) {
-      throw new Error("Usuario no encontrado");
-    }
-
-    // Verificar tema de foto con Cloudinary
-    // ...
-
-    user.name = profileData.name;
-    user.lastname = profileData.lastname;
-    user.phone = profileData.phone;
-    user.img_url = profileData.img_url;
-    user.password = profileData.password;
-
-    await user.save();
-    return user;
+    return updatedUser;
   } catch (error) {
+    console.error("Error al actualizar el perfil del usuario:", error);
     throw new Error("Error al actualizar el perfil del usuario");
   }
 }
