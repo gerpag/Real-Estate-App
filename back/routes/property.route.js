@@ -7,4 +7,5 @@ propertyRouter.get("/category/:name", propertyController.getPropertyByCategory);
 
 propertyRouter.get("/all",propertyController.getAllProperty)
 
+propertyRouter.get("/:id",propertyController.getProperty)
 module.exports = propertyRouter

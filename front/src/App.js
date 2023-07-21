@@ -16,6 +16,9 @@ import Venta from "./views/Ventas";
 import Alquiler from "./views/Alquiler";
 import AllUser from "./views/AllUser";
 import MyProfile from "./views/MyProfile";
+import PropertyDetails from "./views/PropertyDetails";
+import Background from "./components/BackGround";
+
 
 function App() {
   //const dispatch = useDispatch();
@@ -25,6 +28,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <Background />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
@@ -35,6 +39,7 @@ function App() {
         <Route path="/alquiler" element={<Alquiler />}></Route>
         <Route path="/allUser" element={<AllUser />}></Route>
         <Route path="/profile" element={<MyProfile />}></Route>
+        <Route path="/property/:id" element={<PropertyDetails />}></Route>
       </Routes>
     </>
   );

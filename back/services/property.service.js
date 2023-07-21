@@ -9,4 +9,12 @@ async function getAllProperty() {
   return Property.findAll()
 }
 
-module.exports = {getPropertytByCategory,getAllProperty}
+async function getProperty (id) {
+ 
+  return Property.findOne( {where: {
+    id: id,
+  }});
+};
+
+module.exports = {getPropertytByCategory,getAllProperty,getProperty}
+

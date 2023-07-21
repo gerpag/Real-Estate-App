@@ -12,12 +12,18 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from '@mui/material/TextField';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SquareFootIcon from '@mui/icons-material/SquareFoot';
+import BedIcon from '@mui/icons-material/Bed';
+import BathtubIcon from '@mui/icons-material/Bathtub';
+
 
 function Property() {
   const [property, setProperty] = useState(null);
   const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const [editedPropertyId, setEditedPropertyId] = useState(null);
+ 
   const [editedProperty, setEditedProperty] = useState(null);
 
   const data = async () => {
@@ -47,7 +53,7 @@ function Property() {
   };
 
   const handleClickOpen = (id) => {
-    setEditedPropertyId(id);
+    
     const editedProperty = property.find((prop) => prop.id === id);
     setEditedProperty(editedProperty);
     setOpen(true);
@@ -90,12 +96,12 @@ function Property() {
                     component="img"
                     height="100%"
                     width="200"
-                    image={property.imgsUrl || "placeholder.jpg"}
+                    image={property.imgsUrl }
                     sx={{
                       alignSelf: "flex-start",
                       borderRight: "1px solid blue",
                       objectFit: "cover",
-                      width: "180px",
+                      width: "160px",
                     }}
                   />
                   <CardContent sx={{ height: "100%" }}>
@@ -111,10 +117,10 @@ function Property() {
                         sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
                       >
                         <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {property.price}
+                                {<  AttachMoneyIcon />} { property.price}
                         </div>
                         <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {property.location}
+                                 {<LocationOnIcon />}{property.location}
                         </div>
                       </Box>
                       <Box
@@ -124,13 +130,13 @@ function Property() {
                         }}
                       >
                         <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {property.surface}
+                         {<SquareFootIcon />} {property.surface}  m2
                         </div>
                         <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {property.ambientes}
+                          {<BedIcon/>}   {property.ambientes}
                         </div>
                         <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {property.bathrooms}
+                          {<BathtubIcon />}  {property.bathrooms}
                         </div>
                       </Box>
                       <div style={{ border: "1px solid blue", height: "100%" }}>
@@ -161,6 +167,7 @@ function Property() {
                         <Button
                           variant="contained"
                           style={{ border: "1px solid blue", height: "100%" }}
+                          to={`/property/${property.id}`} component={Link}
                         >
                           Ver más
                         </Button>
@@ -324,5 +331,3 @@ function Property() {
 }
 
 export default Property;
-
-
