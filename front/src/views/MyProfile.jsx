@@ -74,7 +74,7 @@ function MyProfile() {
         <Avatar
           sx={{ width: 100, height: 100 }}
           alt="Foto de Perfil"
-          src={userData.foto}
+          src={userData.img_url}
         />
         <Typography variant="h5" mt={2}>
           {userData.nombre} {userData.apellido}
@@ -84,7 +84,13 @@ function MyProfile() {
       <Box
         component="form"
         mt={4}
-        sx={{ display: "flex", flexDirection: "column" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "white",
+          padding: "20px",
+          borderRadius: "8px",
+        }}
       >
         <TextField
           label="Nombre"
