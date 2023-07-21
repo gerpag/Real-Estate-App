@@ -18,3 +18,17 @@ exports.getAllProperty = async (req, res) => {
     return res.status(500).json({ error: "Search failed" });
   }
 };
+
+exports.getProperty = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const property = await propertyService.getProperty(id);
+    if (!property) {
+      return res.status(404).json({ message: 'Propiedad no encontrada.' });
+    }
+    res.json(property);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener la propiedad.' });
+  }
+};
+
