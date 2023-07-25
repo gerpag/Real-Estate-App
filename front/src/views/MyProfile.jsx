@@ -118,15 +118,7 @@ function MyProfile() {
           margin="normal"
           variant="outlined"
         />
-        <TextField
-          label="Contraseña"
-          name="password"
-          type="password"
-          value={userData.password}
-          onChange={handleInputChange}
-          margin="normal"
-          variant="outlined"
-        />
+
         <TextField
           label="URL de Foto"
           name="img_url"
