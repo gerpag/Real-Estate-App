@@ -18,6 +18,18 @@ function PropertyDetails() {
   const [property, setProperty] = useState(null);
   const user = useSelector((state) => state.user);
 
+  const handleAddToFavorites = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/api/favorites/user/${user.id}/add`,
+        { propertyId: id }
+      );
+      alert("Propiedad agregada a favoritos:", response.data);
+    } catch (error) {
+      console.error("Error al agregar propiedad a favoritos:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,7 +104,6 @@ function PropertyDetails() {
         >
           {user?.admin ? null : (
             <>
-              
               <Button
                 variant="contained"
                 style={{
@@ -100,6 +111,7 @@ function PropertyDetails() {
                   height: "100%",
                   backgroundColor: "red",
                 }}
+                onClick={handleAddToFavorites}
               >
                 Favorito
               </Button>
@@ -114,7 +126,6 @@ function PropertyDetails() {
               >
                 Cita
               </Button>
-              
             </>
           )}
           <Button

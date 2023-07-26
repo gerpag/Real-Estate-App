@@ -27,7 +27,9 @@ async function getFavoriteWithDataById(favoriteId) {
 }
 
 async function addFavorite(userId, propertyId) {
-  return Favorites.findOrCreate({ userId, propertyId });
+  return Favorites.findOrCreate({
+    where: { userId, propertyId },
+  });
 }
 
 async function removeFavorite(favoriteId) {
