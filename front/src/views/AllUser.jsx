@@ -46,7 +46,7 @@ function Propiedad() {
   return (
     <>
       {" "}
-      <Box textAlign="center" p={3}>
+      <Box textAlign="center" p={3} sx={{backgroundColor: "white"}}>
         {user && user.length > 0 ? (
           <Table>
             <TableHead>
@@ -76,7 +76,7 @@ function Propiedad() {
 
                   <TableCell>
                     <Stack direction="row" spacing={2}>
-                      <Button variant="contained"  onClick={() => handleDelete(user.id)}>Delete</Button>
+                    {user.admin == true ? null : <Button variant="contained"  onClick={() => handleDelete(user.id)}>Delete</Button>}
                     </Stack>
                   </TableCell>
                   <TableCell>{user.admin == true ? "SI" : "NO"}</TableCell>

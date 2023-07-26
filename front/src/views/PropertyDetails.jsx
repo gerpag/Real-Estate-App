@@ -58,7 +58,7 @@ function PropertyDetails() {
           display: "flex",
           border: "1px solid blue",
           margin: "10px",
-          flexDirection: "column", // Añadimos esta propiedad para colocar los botones debajo del contenido
+          flexDirection: "column",
         }}
       >
         <CardMedia
