@@ -11,9 +11,11 @@ import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import Button from "@mui/material/Button";
 import { Link} from "react-router-dom";
-
+import { useSelector } from "react-redux";
 
 function Alquiler() {
+  const user = useSelector((state) => state.user)
+
   const [property, setProperty] = useState(null);
   const data = async () => {
     try {
@@ -105,7 +107,7 @@ function Alquiler() {
                           display: "grid",
                           gridTemplateColumns: "1fr 1fr 1fr",
                         }}
-                      >
+                      >{user ?  <>
                         <Button
                           variant="contained"
                           style={{ border: "1px solid red", height: "100%",backgroundColor:"red" }}
@@ -120,7 +122,7 @@ function Alquiler() {
                           type="submit"
                         >
                           Cita
-                        </Button>
+                        </Button></> : null }
                         <Button
                           variant="contained"
                           style={{ border: "1px solid red", height: "100%",backgroundColor:"red" }}

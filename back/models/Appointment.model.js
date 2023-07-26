@@ -11,11 +11,11 @@ Appointments.init(
       allowNull: false,
     },
     date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
     hour: {
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     id_propierty: {

@@ -90,7 +90,10 @@ function PropertyDetails() {
             marginTop: "auto",
           }}
         >
-          {user?.admin ? null : (
+          
+
+
+          {user?.admin == false ?  (
             <>
               
               <Button
@@ -116,7 +119,7 @@ function PropertyDetails() {
               </Button>
               
             </>
-          )}
+          ) : null}
           <Button
             variant="contained"
             style={{
