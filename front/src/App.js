@@ -18,7 +18,7 @@ import AllUser from "./views/AllUser";
 import MyProfile from "./views/MyProfile";
 import PropertyDetails from "./views/PropertyDetails";
 import Background from "./components/BackGround";
-
+import Appointments from "./views/Appointment";
 
 function App() {
   //const dispatch = useDispatch();
@@ -40,6 +40,7 @@ function App() {
         <Route path="/allUser" element={<AllUser />}></Route>
         <Route path="/profile" element={<MyProfile />}></Route>
         <Route path="/property/:id" element={<PropertyDetails />}></Route>
+        <Route path="/appointments" element={<Appointments />}></Route>
       </Routes>
     </>
   );

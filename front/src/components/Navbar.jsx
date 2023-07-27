@@ -48,7 +48,9 @@ function Navbar() {
           </Typography>
 
           {user && user.admin ? (
-            <>
+            <><Button color="inherit" to={"/appointments"} component={Link}>
+            Citas
+          </Button>
               <Button color="inherit" to={"/property"} component={Link}>
                 Propiedades
               </Button>
