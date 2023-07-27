@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setUser } from "../state/user";
-import TextField from "@mui/material/TextField";
 
+import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
@@ -36,7 +36,6 @@ const Login = () => {
       const userData = response.data;
       dispatch(setUser(userData));
 
-      // Redirige a la ruta "/me" en el backend
       const meResponse = await axios.get("http://localhost:3001/api/user/me", {
         withCredentials: true,
         credentials: "include",
@@ -82,7 +81,6 @@ const Login = () => {
                     autoFocus
                     onChange={(e) => setLoginEmail(e.target.value)}
                     value={loginEmail}
-                
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -97,7 +95,6 @@ const Login = () => {
                     autoComplete="current-password"
                     onChange={(e) => setLoginPassword(e.target.value)}
                     value={loginPassword}
-                  
                   />
                 </Grid>
                 ¿Olvidaste tu contraseña?

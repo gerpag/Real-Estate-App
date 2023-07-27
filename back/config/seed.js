@@ -1,5 +1,23 @@
 const db = require("./db");
 const Property = require("../models/Property.model");
+const User = require("../models/User.model");
+
+const usersData = [
+  {
+    name: "max",
+    lastname: "vincent",
+    email: "admin@admin.com",
+    password: "1234",
+    admin: true,
+  },
+  {
+    name: "ger",
+    lastname: "pag",
+    email: "gerpa@mail.com",
+    password: "1234",
+    admin: false,
+  },
+];
 
 const propertiesData = [
   {
@@ -86,6 +104,7 @@ async function seed() {
     await db.sync();
 
     await Property.bulkCreate(propertiesData);
+    await User.bulkCreate(usersData);
 
     console.log(
       "Los datos se han insertado correctamente en la base de datos."

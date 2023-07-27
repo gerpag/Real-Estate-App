@@ -30,7 +30,7 @@ exports.addFavorite = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    const favorite = favoritesService.addFavorite(userId, propertyId);
+    const favorite = await favoritesService.addFavorite(userId, propertyId);
     res.json(favorite);
   } catch (error) {
     res.status(500).json({ message: "Error al agregar a lista de favoritos " });

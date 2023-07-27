@@ -7,7 +7,7 @@ async function getUserFavorites(userId) {
 
 async function getFavoriteWithDataById(favoriteId) {
   try {
-    const favorite = await Favorite.findByPk(favoriteId, {
+    const favorite = await Favorites.findByPk(favoriteId, {
       include: [
         {
           model: User,

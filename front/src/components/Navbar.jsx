@@ -1,20 +1,38 @@
 import * as React from "react";
+import { useEffect } from "react";
+import setFavorites from "../state/favoritesSlice";
+
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import axios from "axios";
+
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { setUser } from "../state/user";
-import { useNavigate } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user);
+
+  useEffect(() => {
+    const url = `http://localhost:3001/api/favorites/user/${user.id}`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setFavorites(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los favoritos:", error);
+      });
+  }, [user.id]);
 
   const handleLogout = () => {
     axios
@@ -84,6 +102,32 @@ function Navbar() {
               <Button color="inherit" onClick={handleLogout}>
                 Salir
               </Button>
+
+              <div style={{ position: "absolute", top: 70, right: 20 }}>
+                <Button
+                  component={Link}
+                  to={`/favorites/${user.id}`}
+                  style={{
+                    border: "1px solid blue",
+                    color: "blue",
+                    backgroundColor: "white",
+                    borderTopLeftRadius: "50px",
+                    borderBottomLeftRadius: "50px",
+                  }}
+                >
+                  Favoritos
+                  <FavoriteBorderIcon
+                    sx={{
+                      marginLeft: "5px",
+                      color: "blue",
+                      border: "1px solid red",
+                      borderRadius: "50%",
+                      p: 0.3,
+                      mr: 0.5,
+                    }}
+                  />
+                </Button>
+              </div>
             </>
           ) : (
             <>

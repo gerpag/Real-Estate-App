@@ -9,8 +9,6 @@ import Register from "./views/Register";
 
 import AdminSubmit from "./views/AdminSubmit";
 
-// import { useDispatch } from "react-redux";
-// import { setUser } from "../src/state/user";
 import Property from "./views/Property";
 import Venta from "./views/Ventas";
 import Alquiler from "./views/Alquiler";
@@ -18,13 +16,9 @@ import AllUser from "./views/AllUser";
 import MyProfile from "./views/MyProfile";
 import PropertyDetails from "./views/PropertyDetails";
 import Background from "./components/BackGround";
-
+import FavoritesList from "../src/views/FavoritesList";
 
 function App() {
-  //const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setUser(null));
-  // }, []);
   return (
     <>
       <Navbar />
@@ -40,6 +34,7 @@ function App() {
         <Route path="/allUser" element={<AllUser />}></Route>
         <Route path="/profile" element={<MyProfile />}></Route>
         <Route path="/property/:id" element={<PropertyDetails />}></Route>
+        <Route path="/favorites/:userId" element={FavoritesList} />
       </Routes>
     </>
   );

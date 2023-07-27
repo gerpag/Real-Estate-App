@@ -10,13 +10,17 @@ import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import BedIcon from "@mui/icons-material/Bed";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import Button from "@mui/material/Button";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import FavoritesButton from "../commons/FavoritesButton";
 
 function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const user = useSelector((state) => state.user);
+
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleAddToFavorites = async () => {
     try {
@@ -28,6 +32,10 @@ function PropertyDetails() {
     } catch (error) {
       console.error("Error al agregar propiedad a favoritos:", error);
     }
+  };
+
+  const handleToggleFavorite = () => {
+    setIsFavorite((prevIsFavorite) => !prevIsFavorite);
   };
 
   useEffect(() => {
@@ -104,17 +112,7 @@ function PropertyDetails() {
         >
           {user?.admin ? null : (
             <>
-              <Button
-                variant="contained"
-                style={{
-                  border: "1px solid red",
-                  height: "100%",
-                  backgroundColor: "red",
-                }}
-                onClick={handleAddToFavorites}
-              >
-                Favorito
-              </Button>
+              <FavoritesButton />
               <Button
                 variant="contained"
                 style={{

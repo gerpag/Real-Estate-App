@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
+//import { useSelector } from "react-redux";
+
+import { Link } from "react-router-dom";
 import axios from "axios";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SquareFootIcon from '@mui/icons-material/SquareFoot';
-import BedIcon from '@mui/icons-material/Bed';
-import BathtubIcon from '@mui/icons-material/Bathtub';
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import SquareFootIcon from "@mui/icons-material/SquareFoot";
+import BedIcon from "@mui/icons-material/Bed";
+import BathtubIcon from "@mui/icons-material/Bathtub";
 import Button from "@mui/material/Button";
-import { Link} from "react-router-dom";
 
+import FavoritesButton from "../commons/FavoritesButton";
 
 function Alquiler() {
   const [property, setProperty] = useState(null);
+
+  //const user = useSelector((state) => state.user);
+
   const data = async () => {
     try {
       const response = await axios.get(
@@ -23,7 +30,6 @@ function Alquiler() {
       const data = response.data;
 
       setProperty(data);
-     
     } catch (error) {
       console.error(error);
     }
@@ -31,11 +37,10 @@ function Alquiler() {
   useEffect(() => {
     data();
   }, []);
- 
+
   return (
     <>
-
-<div style={{ margin: "0 5%" }}>
+      <div style={{ margin: "0 5%" }}>
         <Box display="flex" flexWrap="wrap">
           {property &&
             property.map((property, index) => (
@@ -53,7 +58,7 @@ function Alquiler() {
                     component="img"
                     height="100%"
                     width="200"
-                    image={property.imgsUrl }
+                    image={property.imgsUrl}
                     sx={{
                       alignSelf: "flex-start",
                       borderRight: "1px solid blue",
@@ -73,11 +78,16 @@ function Alquiler() {
                       <Box
                         sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
                       >
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                                {<  AttachMoneyIcon />} { property.price}
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {<AttachMoneyIcon />} {property.price}
                         </div>
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                                 {<LocationOnIcon />}{property.location}
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {<LocationOnIcon />}
+                          {property.location}
                         </div>
                       </Box>
                       <Box
@@ -86,14 +96,20 @@ function Alquiler() {
                           gridTemplateColumns: "1fr 1fr 1fr",
                         }}
                       >
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                         {<SquareFootIcon />} {property.surface}  m2
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {<SquareFootIcon />} {property.surface} m2
                         </div>
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {<BedIcon/>}   {property.ambientes}
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {<BedIcon />} {property.ambientes}
                         </div>
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {<BathtubIcon />}  {property.bathrooms}
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {<BathtubIcon />} {property.bathrooms}
                         </div>
                       </Box>
                       <div style={{ border: "1px solid blue", height: "100%" }}>
@@ -106,25 +122,37 @@ function Alquiler() {
                           gridTemplateColumns: "1fr 1fr 1fr",
                         }}
                       >
-                        <Button
+                        {/* <Button
                           variant="contained"
-                          style={{ border: "1px solid red", height: "100%",backgroundColor:"red" }}
-                          
+                          style={{
+                            border: "1px solid red",
+                            height: "100%",
+                            backgroundColor: "red",
+                          }}
                         >
                           Favorito
-                        </Button>
+                        </Button> */}
+                        <FavoritesButton />
                         <Button
                           variant="contained"
-                          style={{ border: "1px solid red", height: "100%",backgroundColor:"red" }}
-                          
+                          style={{
+                            border: "1px solid red",
+                            height: "100%",
+                            backgroundColor: "red",
+                          }}
                           type="submit"
                         >
                           Cita
                         </Button>
                         <Button
                           variant="contained"
-                          style={{ border: "1px solid red", height: "100%",backgroundColor:"red" }}
-                          to={`/property/${property.id}`} component={Link}
+                          style={{
+                            border: "1px solid red",
+                            height: "100%",
+                            backgroundColor: "red",
+                          }}
+                          to={`/property/${property.id}`}
+                          component={Link}
                         >
                           Ver más
                         </Button>
@@ -141,4 +169,3 @@ function Alquiler() {
 }
 
 export default Alquiler;
-
