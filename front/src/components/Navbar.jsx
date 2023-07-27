@@ -14,7 +14,7 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user);
+  
 
   const handleLogout = () => {
     axios
@@ -48,7 +48,9 @@ function Navbar() {
           </Typography>
 
           {user && user.admin ? (
-            <>
+            <><Button color="inherit" to={"/appointments"} component={Link}>
+            Citas
+          </Button>
               <Button color="inherit" to={"/property"} component={Link}>
                 Propiedades
               </Button>
