@@ -107,6 +107,20 @@ function Alquiler() {
   return (
     <>
       <div style={{ margin: "0 5%" }}>
+      <Box sx={{background: 'white',
+    maxWidth: 1065,
+    height: 48,
+    border: '1px solid blue',
+    margin: '10px',
+    display: 'flex',
+    alignItems: 'flex-end', 
+    fontFamily: 'Montserrat, sans-serif', 
+    justifyContent: 'space-between', 
+    paddingLeft: '5px', 
+    borderBottom: '1px solid blue',
+    fontSize: '17px', 
+    color: 'blue', 
+              }}>PROPIEDAD EN ALQUILER</Box>
         <Box display="flex" flexWrap="wrap">
           {property &&
             property.map((property, index) => (

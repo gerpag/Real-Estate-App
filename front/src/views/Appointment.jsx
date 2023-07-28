@@ -5,31 +5,59 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import { Link, useParams } from "react-router-dom";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from '@mui/material/TextField';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SquareFootIcon from '@mui/icons-material/SquareFoot';
-import BedIcon from '@mui/icons-material/Bed';
-import BathtubIcon from '@mui/icons-material/Bathtub';
-
-
+import Button from '@mui/material/Button'
 function Appointments() {
-  const [property, setProperty] = useState(null);
   const { id } = useParams();
-  const [open, setOpen] = useState(false);
- 
-  const [editedProperty, setEditedProperty] = useState(null);
+  const [appointment, setAppointment] = useState([]);
+  appointment.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    if (dateA.getFullYear() !== dateB.getFullYear()) {
+      return dateA.getFullYear() - dateB.getFullYear();
+    }
+
+    if (dateA.getMonth() !== dateB.getMonth()) {
+      return dateA.getMonth() - dateB.getMonth();
+    }
+
+    return dateA.getDate() - dateB.getDate();
+  });
+
+  const [user, setUser] = useState([]);
+  const [property, setProperty] = useState([]);
 
   const data = async () => {
     try {
       const response = await axios.get(
         "http://localhost:3001/api/appointment/searchAll"
+      );
+      const data = response.data;
+      console.log(response);
+      console.log(data);
+
+      setAppointment(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const data1 = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/api/admin/allUser"
+      );
+      const data = response.data;
+
+      setUser(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const data2 = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/api/property/all"
       );
       const data = response.data;
 
@@ -41,36 +69,63 @@ function Appointments() {
 
   useEffect(() => {
     data();
+    data1();
+    data2();
   }, []);
+  const getUserNameById = (userId) => {
+    const userFound = user.find((user) => user.id === userId);
+    return userFound
+      ? `${userFound.name} ${userFound.lastname}`
+      : "Usuario no encontrado";
+  };
+  const getLocationById = (propertyId) => {
+    const propertyFound = property.find((prop) => prop.id === propertyId);
+    return propertyFound ? propertyFound.location : "Ubicación no encontrada";
+  };
+  const getImageUrlById = (propertyId) => {
+    const propertyFound = property.find((prop) => prop.id === propertyId);
+    return propertyFound
+      ? propertyFound.imgsUrl
+      : "URL de imagen no encontrada";
+  };
+  const getEmailById = (userId) => {
+    const userFound = user.find((user) => user.id === userId);
+    return userFound ? userFound.email : "Email no encontrado";
+  };
+
+  const getPhoneById = (userId) => {
+    const userFound = user.find((user) => user.id === userId);
+    return userFound ? userFound.phone : "Teléfono no encontrado";
+  };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/admin/property/delete/${id}`);
+      await axios.delete(`http://localhost:3001/api/appointment/delete/${id}`);
       data();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleClickOpen = (id) => {
-    
-    const editedProperty = property.find((prop) => prop.id === id);
-    setEditedProperty(editedProperty);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleEditProperty = async () => {
+  const handleEdit = async (id) => {
     try {
+      const appointmentToUpdate = appointment.find((appt) => appt.id === id);
+
+      const updatedAppointment = {
+        ...appointmentToUpdate,
+        confirmation: true,
+      };
+
       await axios.put(
-        `http://localhost:3001/api/admin/property/edit/${editedProperty.id}`,
-        editedProperty
+        `http://localhost:3001/api/appointment/edit/${id}`,
+        updatedAppointment
       );
-      data();
-      handleClose();
+
+      setAppointment((prevAppointments) =>
+        prevAppointments.map((appt) =>
+          appt.id === id ? { ...appt, confirmation: true } : appt
+        )
+      );
     } catch (error) {
       console.error(error);
     }
@@ -79,97 +134,227 @@ function Appointments() {
   return (
     <>
       <div style={{ margin: "0 5%" }}>
+        <Box
+          sx={{
+            background: "white",
+            maxWidth: 1065,
+            height: 48,
+            border: "1px solid blue",
+            margin: "10px",
+            display: "flex",
+            alignItems: "flex-end",
+            fontFamily: "Montserrat, sans-serif",
+            justifyContent: "space-between",
+            paddingLeft: "5px",
+            borderBottom: "1px solid blue",
+            fontSize: "17px",
+            color: "blue",
+          }}
+        >
+          PRÓXIMAS CITAS
+        </Box>
+
         <Box display="flex" flexWrap="wrap">
-          {property?.map((property, index) => (
+          {appointment
+            .filter((appointment) => appointment.confirmation === true)
+            .map((appointment, index) => (
               <Card
-                key={property.id}
+                key={appointment.id}
                 sx={{
                   maxWidth: 530,
-                  height: 200,
+                  height: 275,
                   border: "1px solid blue",
                   margin: "10px",
                 }}
               >
                 <Box sx={{ display: "flex", height: "100%" }}>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="200"
-                    image={property.imgsUrl }
-                    sx={{
-                      alignSelf: "flex-start",
-                      borderRight: "1px solid blue",
-                      objectFit: "cover",
-                      width: "160px",
-                    }}
-                  />
-                  <CardContent sx={{ height: "100%" }}>
+                <Box>
+                    <CardMedia
+                      component="img"
+                      height="190px"
+                      width="200"
+                      sx={{
+                        alignSelf: "flex-start",
+                        borderRight: "1px solid blue",
+                        objectFit: "cover",
+                        width: "160px",
+                      }}
+                      image={getImageUrlById(appointment.id_propierty)}
+                    />
+                    <Box display="flex" justifyContent="center" mt={2}>
+                 
+                      <Button variant="contained" color="success" onClick={() => handleDelete(appointment.id)}>
+                        Finalizada
+                      </Button>
+                    </Box>{" "}
+                  </Box>
+                  <CardContent >
                     <Box
                       sx={{
                         display: "grid",
                         gridTemplateRows: "repeat(5, 1fr)",
                         width: "330px",
                         height: "100%",
+                        margin: "0px",
                       }}
                     >
                       <Box
                         sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
                       >
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                                {<  AttachMoneyIcon />} { property.price}
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {appointment.date}
                         </div>
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                                 {<LocationOnIcon />}{property.location}
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {appointment.hour}
                         </div>
                       </Box>
-                      <Box
-                        sx={{
-                          display: "grid",
-                          gridTemplateColumns: "1fr 1fr 1fr",
-                        }}
-                      >
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                         {<SquareFootIcon />} {property.surface}  m2
+                      <Box>
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {getLocationById(appointment.id_propierty)}
                         </div>
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {<BedIcon/>}   {property.ambientes}
+                      </Box>{" "}
+                      <Box>
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {getUserNameById(appointment.id_user)}
                         </div>
-                        <div style={{ border: "1px solid blue", height: "100%" }}>
-                          {<BathtubIcon />}  {property.bathrooms}
+                      </Box>{" "}
+                      <Box>
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {getPhoneById(appointment.id_user)}
+                        </div>
+                      </Box>{" "}
+                      <Box>
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {getEmailById(appointment.id_user)}
                         </div>
                       </Box>
-                      <div style={{ border: "1px solid blue", height: "100%" }}>
-                        {property.description}
-                      </div>
-
-                      <Box
-                        sx={{
-                          display: "grid",
-                          gridTemplateColumns: "1fr 1fr 1fr",
-                        }}
+                    </Box>
+                  </CardContent>
+                </Box>
+              </Card>
+            ))}
+        </Box>
+        <Box
+          sx={{
+            background: "white",
+            maxWidth: 1065,
+            height: 48,
+            border: "1px solid blue",
+            margin: "10px",
+            display: "flex",
+            alignItems: "flex-end",
+            fontFamily: "Montserrat, sans-serif",
+            justifyContent: "space-between",
+            paddingLeft: "5px",
+            borderBottom: "1px solid blue",
+            fontSize: "17px",
+            color: "blue",
+          }}
+        >
+          CITAS POR CONFIRMAR
+        </Box>
+        <Box display="flex" flexWrap="wrap">
+          {appointment
+            .filter((appointment) => appointment.confirmation === false)
+            .map((appointment, index) => (
+              <Card
+                key={appointment.id}
+                sx={{
+                  maxWidth: 530,
+                  height: 275,
+                  border: "1px solid blue",
+                  margin: "10px",
+                }}
+              >
+                <Box sx={{ display: "flex", height: "100%" }}>
+                  <Box>
+                    <CardMedia
+                      component="img"
+                      height="190px"
+                      width="200"
+                      sx={{
+                        alignSelf: "flex-start",
+                        borderRight: "1px solid blue",
+                        objectFit: "cover",
+                        width: "160px",
+                      }}
+                      image={getImageUrlById(appointment.id_propierty)}
+                    />
+                    <Box display="flex" justifyContent="center" mt={1}>
+                      <Button size="small" variant="contained" color="success"
+                        style={{ marginRight: "5px" }}
+                        onClick={() => handleEdit(appointment.id)}
                       >
-                        <Button
-                          variant="contained"
+                        Confirmar   
+                      </Button></Box><Box display="flex" justifyContent="center" mt={1} >
+                      <Button size="small" variant="contained" color="error"onClick={() => handleDelete(appointment.id)}>
+                        Recharzar
+                      </Button>
+                    </Box>
+                  </Box>
+                  <CardContent >
+                    <Box
+                      sx={{
+                        display: "grid",
+                        gridTemplateRows: "repeat(5, 1fr)",
+                        width: "330px",
+                        height: "100%",
+                        margin: "0px",
+                      }}
+                    >
+                      <Box
+                        sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+                      >
+                        <div
                           style={{ border: "1px solid blue", height: "100%" }}
-                          onClick={() => handleClickOpen(property.id)}
                         >
-                          Editar
-                        </Button>
-                        <Button
-                          variant="contained"
+                          {appointment.date}
+                        </div>
+                        <div
                           style={{ border: "1px solid blue", height: "100%" }}
-                          onClick={() => handleDelete(property.id)}
-                          type="submit"
                         >
-                          Eliminar
-                        </Button>
-                        <Button
-                          variant="contained"
+                          {appointment.hour}
+                        </div>
+                      </Box>
+                      <Box>
+                        <div
                           style={{ border: "1px solid blue", height: "100%" }}
-                          to={`/property/${property.id}`} component={Link}
                         >
-                          Ver más
-                        </Button>
+                          {getLocationById(appointment.id_propierty)}
+                        </div>
+                      </Box>{" "}
+                      <Box>
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {getUserNameById(appointment.id_user)}
+                        </div>
+                      </Box>{" "}
+                      <Box>
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {getPhoneById(appointment.id_user)}
+                        </div>
+                      </Box>{" "}
+                      <Box>
+                        <div
+                          style={{ border: "1px solid blue", height: "100%" }}
+                        >
+                          {getEmailById(appointment.id_user)}
+                        </div>
                       </Box>
                     </Box>
                   </CardContent>
@@ -178,155 +363,8 @@ function Appointments() {
             ))}
         </Box>
       </div>
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Editar Propiedad</DialogTitle>
-        {editedProperty && (
-          <DialogContent>
-            <DialogContentText>
-              Edita los campos de la propiedad:
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="price"
-              label="Precio"
-              type="number"
-              fullWidth
-              value={editedProperty.price}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  price: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="location"
-              label="Ubicación"
-              fullWidth
-              value={editedProperty.location}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  location: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="surface"
-              label="Superficie"
-              fullWidth
-              value={editedProperty.surface}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  surface: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="ambientes"
-              label="Ambientes"
-              fullWidth
-              value={editedProperty.ambientes}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  ambientes: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="category"
-              label="Categoria"
-              fullWidth
-              value={editedProperty.category}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  category: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="description"
-              label="Description"
-              fullWidth
-              value={editedProperty.description}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  description: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="imgsUrl"
-              label="ImgUrl"
-              fullWidth
-              value={editedProperty.imgsUrl}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  imgsUrl: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="bathrooms"
-              label="Baños"
-              fullWidth
-              value={editedProperty.bathrooms}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  bathrooms: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="operation"
-              label="Operacion"
-              fullWidth
-              value={editedProperty.operation}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  operation: e.target.value,
-                })
-              }
-            />
-            <TextField
-              margin="dense"
-              id="address"
-              label="Dirección"
-              fullWidth
-              value={editedProperty.address}
-              onChange={(e) =>
-                setEditedProperty({
-                  ...editedProperty,
-                  address: e.target.value,
-                })
-              }
-            />
-          </DialogContent>
-        )}
-        <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleEditProperty}>Guardar Cambios</Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 }
 
-export default Appointments
+export default Appointments;
