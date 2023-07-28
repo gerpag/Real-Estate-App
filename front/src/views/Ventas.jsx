@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import axios from "axios";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
+
+import BathtubIcon from "@mui/icons-material/Bathtub";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import BedIcon from "@mui/icons-material/Bed";
-import BathtubIcon from "@mui/icons-material/Bathtub";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -21,8 +25,10 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router";
 import dayjs from "dayjs";
 
+import FavoritesButton from "../commons/FavoritesButton";
+
 function Ventas() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const hora = [
     "09:00",
     "10:00",
@@ -68,8 +74,8 @@ function Ventas() {
   const handleClickOpen = (propertyId) => {
     setOpen(true);
     setPropertyN(propertyId);
-    setSelectedHora("")
-    setSelectedDia("")
+    setSelectedHora("");
+    setSelectedDia("");
   };
 
   const handleClose = () => {
@@ -107,20 +113,25 @@ function Ventas() {
   return (
     <>
       <div style={{ margin: "0 5%" }}>
-      <Box sx={{background: 'white',
-    maxWidth: 1065,
-    height: 48,
-    border: '1px solid blue',
-    margin: '10px',
-    display: 'flex',
-    alignItems: 'flex-end', 
-    fontFamily: 'Montserrat, sans-serif', 
-    justifyContent: 'space-between', 
-    paddingLeft: '5px', 
-    borderBottom: '1px solid blue',
-    fontSize: '17px', 
-    color: 'blue', 
-              }}>PROPIEDAD EN VENTA</Box>
+        <Box
+          sx={{
+            background: "white",
+            maxWidth: 1065,
+            height: 48,
+            border: "1px solid blue",
+            margin: "10px",
+            display: "flex",
+            alignItems: "flex-end",
+            fontFamily: "Montserrat, sans-serif",
+            justifyContent: "space-between",
+            paddingLeft: "5px",
+            borderBottom: "1px solid blue",
+            fontSize: "17px",
+            color: "blue",
+          }}
+        >
+          PROPIEDAD EN VENTA
+        </Box>
         <Box display="flex" flexWrap="wrap">
           {property &&
             property.map((property, index) => (
@@ -138,6 +149,7 @@ function Ventas() {
                     component="img"
                     height="100%"
                     width="200"
+                    image={property.imgsUrl}
                     image={property.imgsUrl}
                     sx={{
                       alignSelf: "flex-start",
@@ -202,38 +214,25 @@ function Ventas() {
                           gridTemplateColumns: "1fr 1fr 1fr",
                         }}
                       >
-                        {user ? (
-                          <>
-                            <Button
-                              variant="contained"
-                              style={{
-                                border: "1px solid red",
-                                height: "100%",
-                                backgroundColor: "red",
-                              }}
-                            >
-                              Favorito
-                            </Button>
-                            <Button
-                              variant="contained"
-                              style={{
-                                border: "1px solid red",
-                                height: "100%",
-                                backgroundColor: "red",
-                              }}
-                              type="submit"
-                              onClick={() => handleClickOpen(property.id)}
-                            >
-                              Cita
-                            </Button>
-                          </>
-                        ) : null}
-
+                        <FavoritesButton user={user} id={property.id} />
                         <Button
                           variant="contained"
                           style={{
                             border: "1px solid red",
                             height: "100%",
+                            backgroundColor: "red",
+                          }}
+                          type="submit"
+                        >
+                          Cita
+                        </Button>
+                        <Button
+                          variant="contained"
+                          style={{
+                            border: "1px solid red",
+
+                            height: "100%",
+
                             backgroundColor: "red",
                           }}
                           to={`/property/${property.id}`}

@@ -5,10 +5,12 @@ class Favorites extends Sequelize.Model {}
 
 Favorites.init(
   {
-    // property_id: {
-    //   type: Sequelize.INTEGER,
-    //   allowNull: false,
-    // },
+    userId: {
+      type: Sequelize.INTEGER,
+    },
+    propertyId: {
+      type: Sequelize.INTEGER,
+    },
   },
   { sequelize, modelName: "favorites" }
 );

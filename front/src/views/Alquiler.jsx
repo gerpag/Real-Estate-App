@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+
 import axios from "axios";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -21,8 +23,10 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router";
 import dayjs from "dayjs";
 
+import FavoritesButton from "../commons/FavoritesButton";
+
 function Alquiler() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const hora = [
     "09:00",
     "10:00",
@@ -53,6 +57,8 @@ function Alquiler() {
   const [open, setOpen] = useState(false);
   const [property, setProperty] = useState(null);
 
+  //const user = useSelector((state) => state.user);
+
   const data = async () => {
     try {
       const response = await axios.get(
@@ -68,8 +74,8 @@ function Alquiler() {
   const handleClickOpen = (propertyId) => {
     setOpen(true);
     setPropertyN(propertyId);
-    setSelectedHora("")
-    setSelectedDia("")
+    setSelectedHora("");
+    setSelectedDia("");
   };
 
   const handleClose = () => {
@@ -107,20 +113,25 @@ function Alquiler() {
   return (
     <>
       <div style={{ margin: "0 5%" }}>
-      <Box sx={{background: 'white',
-    maxWidth: 1065,
-    height: 48,
-    border: '1px solid blue',
-    margin: '10px',
-    display: 'flex',
-    alignItems: 'flex-end', 
-    fontFamily: 'Montserrat, sans-serif', 
-    justifyContent: 'space-between', 
-    paddingLeft: '5px', 
-    borderBottom: '1px solid blue',
-    fontSize: '17px', 
-    color: 'blue', 
-              }}>PROPIEDAD EN ALQUILER</Box>
+        <Box
+          sx={{
+            background: "white",
+            maxWidth: 1065,
+            height: 48,
+            border: "1px solid blue",
+            margin: "10px",
+            display: "flex",
+            alignItems: "flex-end",
+            fontFamily: "Montserrat, sans-serif",
+            justifyContent: "space-between",
+            paddingLeft: "5px",
+            borderBottom: "1px solid blue",
+            fontSize: "17px",
+            color: "blue",
+          }}
+        >
+          PROPIEDAD EN ALQUILER
+        </Box>
         <Box display="flex" flexWrap="wrap">
           {property &&
             property.map((property, index) => (
@@ -138,6 +149,7 @@ function Alquiler() {
                     component="img"
                     height="100%"
                     width="200"
+                    image={property.imgsUrl}
                     image={property.imgsUrl}
                     sx={{
                       alignSelf: "flex-start",
@@ -202,6 +214,28 @@ function Alquiler() {
                           gridTemplateColumns: "1fr 1fr 1fr",
                         }}
                       >
+                        {/* <Button
+                          variant="contained"
+                          style={{
+                            border: "1px solid red",
+                            height: "100%",
+                            backgroundColor: "red",
+                          }}
+                        >
+                          Favorito
+                        </Button> */}
+                        <FavoritesButton />
+                        <Button
+                          variant="contained"
+                          style={{
+                            border: "1px solid red",
+                            height: "100%",
+                            backgroundColor: "red",
+                          }}
+                          type="submit"
+                        >
+                          Cita
+                        </Button>
                         {user ? (
                           <>
                             <Button
@@ -233,7 +267,9 @@ function Alquiler() {
                           variant="contained"
                           style={{
                             border: "1px solid red",
+
                             height: "100%",
+
                             backgroundColor: "red",
                           }}
                           to={`/property/${property.id}`}
