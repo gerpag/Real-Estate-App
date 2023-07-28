@@ -10,12 +10,18 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  
 } from "@mui/material";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+
 function Propiedad() {
+  const [appointment, setAppointment] = useState([]);
+  const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
   const { id } = useParams();
+
   const data = async () => {
     try {
       const response = await axios.get(
@@ -33,20 +39,38 @@ function Propiedad() {
   }, []);
 
   const handleDelete = async (id) => {
-    
     try {
       await axios.delete(`http://localhost:3001/api/admin/user/delete/${id}`);
-     data()
+      data();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    data1(id);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const data1 = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/api/appointment/user/${id}`
+      );
+      const data = response.data;
+
+      setAppointment(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-
   return (
     <>
       {" "}
-      <Box textAlign="center" p={3} sx={{backgroundColor: "white"}}>
+      <Box textAlign="center" p={3} sx={{ backgroundColor: "white" }}>
         {user && user.length > 0 ? (
           <Table>
             <TableHead>
@@ -65,9 +89,17 @@ function Propiedad() {
                 <TableRow key={user.id}>
                   <TableCell>{`${user.lastname}, ${user.name}`}</TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell> <Stack direction="row" spacing={2}>
-                      <Button variant="contained">Citas</Button>
-                    </Stack></TableCell>
+                  <TableCell>
+                    {" "}
+                    <Stack direction="row" spacing={2}>
+                      <Button
+                        variant="contained"
+                        onClick={() => handleClickOpen(user.id)}
+                      >
+                        Citas
+                      </Button>
+                    </Stack>
+                  </TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={2}>
                       <Button variant="contained">Favoritos</Button>
@@ -76,7 +108,14 @@ function Propiedad() {
 
                   <TableCell>
                     <Stack direction="row" spacing={2}>
-                    {user.admin == true ? null : <Button variant="contained"  onClick={() => handleDelete(user.id)}>Delete</Button>}
+                      {user.admin == true ? null : (
+                        <Button
+                          variant="contained"
+                          onClick={() => handleDelete(user.id)}
+                        >
+                          Delete
+                        </Button>
+                      )}
                     </Stack>
                   </TableCell>
                   <TableCell>{user.admin == true ? "SI" : "NO"}</TableCell>
@@ -86,6 +125,25 @@ function Propiedad() {
           </Table>
         ) : null}
       </Box>
+      <Dialog open={open} onClose={handleClose} >
+        <DialogTitle>Citas</DialogTitle>
+        {appointment.length > 0 ? (
+          appointment.map((item) => (
+            <div key={item.id}>
+              <p>
+                Fecha: {item.date} , Hora: {item.hour}, Confirmación:{" "}
+                {item.confirmation ? "Confirmada" : "Pendiente"}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>No hay citas disponibles</p>
+        )}
+
+        <DialogActions>
+          <Button onClick={handleClose}>Cerrar</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
