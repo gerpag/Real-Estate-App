@@ -23,7 +23,7 @@ exports.getUserFavorites = async (req, res) => {
 
 exports.addFavorite = async (req, res) => {
   const { userId } = req.params;
-  const { propertyId } = req.body;
+  const { propertyId } = req.params;
   try {
     const user = await userService.getUserById(userId);
     if (!user) {
@@ -33,6 +33,7 @@ exports.addFavorite = async (req, res) => {
     const favorite = await favoritesService.addFavorite(userId, propertyId);
     res.json(favorite);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error al agregar a lista de favoritos " });
   }
 };

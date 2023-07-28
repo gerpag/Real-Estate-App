@@ -34,7 +34,7 @@ function App() {
         <Route path="/allUser" element={<AllUser />}></Route>
         <Route path="/profile" element={<MyProfile />}></Route>
         <Route path="/property/:id" element={<PropertyDetails />}></Route>
-        <Route path="/favorites/:userId" element={FavoritesList} />
+        <Route path="/favorites/:userId" element={<FavoritesList />} />
       </Routes>
     </>
   );
