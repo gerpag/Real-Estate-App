@@ -17,6 +17,7 @@ import MyProfile from "./views/MyProfile";
 import PropertyDetails from "./views/PropertyDetails";
 import Background from "./components/BackGround";
 import FavoritesList from "../src/views/FavoritesList";
+import Appointments from "./views/Appointment";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/profile" element={<MyProfile />}></Route>
         <Route path="/property/:id" element={<PropertyDetails />}></Route>
         <Route path="/favorites/:userId" element={<FavoritesList />} />
+        <Route path="/appointments" element={<Appointments />}></Route>
       </Routes>
     </>
   );

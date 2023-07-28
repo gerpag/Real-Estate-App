@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Link, useParams } from "react-router-dom";
-//import PropertyDetails from "../commons/PropertyDetails";
 
 function FavoritesList() {
   const [favorites, setFavorites] = useState([]);
@@ -55,7 +55,6 @@ function FavoritesList() {
     <div style={{ margin: "0 5%", backgroundColor: "white" }}>
       <h1>Lista de Propiedades Favoritas</h1>
       {favorites.map((favorite) => (
-        // <PropertyDetails />
         <Card key={favorite} sx={{ maxWidth: 800, margin: "10px" }}>
           <CardContent>
             <h2>Propiedad</h2>
