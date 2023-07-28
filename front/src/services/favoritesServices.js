@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const handleAddToFavorites = async (user, id) => {
+export const handleAddToFavorites = async (user, propertyId) => {
   try {
     const response = await axios.post(
-      `http://localhost:3001/api/favorites/user/${user.id}/add`,
-      { propertyId: id }
+      `http://localhost:3001/api/favorites/add/${user.id}/${propertyId}`,
+      {}
     );
     alert("Propiedad agregada a favoritos:", response.data);
   } catch (error) {

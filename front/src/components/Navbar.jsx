@@ -22,17 +22,19 @@ function Navbar() {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    const url = `http://localhost:3001/api/favorites/user/${user.id}`;
+    if (user?.id) {
+      const url = `http://localhost:3001/api/favorites/user/${user.id}`;
 
-    axios
-      .get(url)
-      .then((response) => {
-        setFavorites(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener los favoritos:", error);
-      });
-  }, [user.id]);
+      axios
+        .get(url)
+        .then((response) => {
+          setFavorites(response.data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los favoritos:", error);
+        });
+    }
+  }, [user?.id]);
 
   const handleLogout = () => {
     axios
