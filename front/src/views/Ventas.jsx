@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
-import BathtubIcon from "@mui/icons-material/Bathtub";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import BedIcon from "@mui/icons-material/Bed";
-import ButtonsProperty from "../components/ButtonsProperty";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import ButtonsProperty from "../components/ButtonsProperty"; // Importa el componente ButtonsProperty
+import { useSelector } from "react-redux";
+
 
 function Ventas() {
-  
- 
-
   const user = useSelector((state) => state.user);
- 
   const [property, setProperty] = useState(null);
 
   const data = async () => {
@@ -31,7 +28,6 @@ function Ventas() {
       console.error(error);
     }
   };
-
 
   useEffect(() => {
     data();
@@ -61,9 +57,9 @@ function Ventas() {
         </Box>
         <Box display="flex" flexWrap="wrap">
           {property &&
-            property.map((propertyIten, index) => (
+            property.map((property, index) => (
               <Card
-                key={propertyIten.id}
+                key={property.id}
                 sx={{
                   maxWidth: 530,
                   height: 200,
@@ -76,8 +72,7 @@ function Ventas() {
                     component="img"
                     height="100%"
                     width="200"
-                    image={propertyIten.imgsUrl}
-    
+                    image={property.imgsUrl}
                     sx={{
                       alignSelf: "flex-start",
                       borderRight: "1px solid blue",
@@ -100,13 +95,13 @@ function Ventas() {
                         <div
                           style={{ border: "1px solid blue", height: "100%" }}
                         >
-                          <AttachMoneyIcon /> {propertyIten.price}
+                          <AttachMoneyIcon /> {property.price}
                         </div>
                         <div
                           style={{ border: "1px solid blue", height: "100%" }}
                         >
                           <LocationOnIcon />
-                          {propertyIten.location}
+                          {property.location}
                         </div>
                       </Box>
                       <Box
@@ -118,30 +113,24 @@ function Ventas() {
                         <div
                           style={{ border: "1px solid blue", height: "100%" }}
                         >
-                          <SquareFootIcon /> {propertyIten.surface} m2
+                          <SquareFootIcon /> {property.surface} m2
                         </div>
                         <div
                           style={{ border: "1px solid blue", height: "100%" }}
                         >
-                          <BedIcon /> {propertyIten.ambientes}
+                          <BedIcon /> {property.ambientes}
                         </div>
                         <div
                           style={{ border: "1px solid blue", height: "100%" }}
                         >
-                          <BathtubIcon /> {propertyIten.bathrooms}
+                          <BathtubIcon /> {property.bathrooms}
                         </div>
                       </Box>
                       <div style={{ border: "1px solid blue", height: "100%" }}>
-                        {propertyIten.description}
+                        {property.description}
                       </div>
 
-                      <Box
-                        sx={{
-                          display: "grid",
-                          gridTemplateColumns: "1fr 1fr 1fr",
-                        }}
-                      ><ButtonsProperty propertyId={propertyIten.id}/>
-                      </Box>
+                      <ButtonsProperty propertyId={property.id} />
                     </Box>
                   </CardContent>
                 </Box>
@@ -149,7 +138,6 @@ function Ventas() {
             ))}
         </Box>
       </div>
-   
     </>
   );
 }

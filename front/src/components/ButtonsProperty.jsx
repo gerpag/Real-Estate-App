@@ -12,8 +12,10 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router";
 import dayjs from "dayjs";
+import FavoritesButton from "../commons/FavoritesButton";
 
-function ButtonsProperty() {
+
+function ButtonsProperty({ propertyId }) {
   const navigate = useNavigate();
   const hora = [
     "09:00",
@@ -43,24 +45,15 @@ function ButtonsProperty() {
   const [propertyN, setPropertyN] = useState("");
   const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
-  const [property, setProperty] = useState("");
+  
 
-  const data = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3001/api/property/category/Venta"
-      );
-      const data = response.data;
-      setProperty(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
-  const handleClickOpen = (propertyId) => {
+  const handleClickOpen = () => {
     setOpen(true);
     setSelectedHora("");
     setSelectedDia("");
+    setPropertyN(propertyId);
   };
 
   const handleClose = () => {
@@ -79,8 +72,9 @@ function ButtonsProperty() {
             id_propierty: propertyN,
           }
         );
-
-        navigate("/");
+          alert("Cita programada")
+          handleClose()
+      
       } else {
         alert(
           "Por favor, selecciona una hora y un día antes de agendar la cita."
@@ -91,9 +85,6 @@ function ButtonsProperty() {
     }
   };
 
-  useEffect(() => {
-    data();
-  }, []);
 
   return (
     <>
@@ -105,16 +96,7 @@ function ButtonsProperty() {
       >
         {user ? (
           <>
-            <Button
-              variant="contained"
-              style={{
-                border: "1px solid red",
-                height: "100%",
-                backgroundColor: "red",
-              }}
-            >
-              Favorito
-            </Button>
+           <FavoritesButton />
             <Button
               variant="contained"
               style={{
@@ -123,7 +105,7 @@ function ButtonsProperty() {
                 backgroundColor: "red",
               }}
               type="submit"
-              onClick={() => handleClickOpen(property.id)}
+              onClick={() => handleClickOpen()}
             >
               Cita
             </Button>
@@ -137,7 +119,7 @@ function ButtonsProperty() {
             height: "100%",
             backgroundColor: "red",
           }}
-          to={`/property/${property.id}`}
+          to={`/property/${propertyId}`}
           component={Link}
         >
           Ver más
