@@ -150,7 +150,7 @@ function Alquiler() {
                     height="100%"
                     width="200"
                     image={property.imgsUrl}
-                    image={property.imgsUrl}
+          
                     sx={{
                       alignSelf: "flex-start",
                       borderRight: "1px solid blue",

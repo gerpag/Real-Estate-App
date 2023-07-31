@@ -31,6 +31,7 @@ function Ventas() {
 
   useEffect(() => {
     data();
+    
   }, []);
 
   return (
@@ -130,7 +131,7 @@ function Ventas() {
                         {property.description}
                       </div>
 
-                      <ButtonsProperty propertyId={property.id} />
+                      <ButtonsProperty propertyId={property.id } user={user.id}  />
                     </Box>
                   </CardContent>
                 </Box>
