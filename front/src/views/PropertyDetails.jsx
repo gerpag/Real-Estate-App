@@ -22,6 +22,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router";
 import dayjs from "dayjs";
+import { sendEmail } from "../services/emailService";
 
 function PropertyDetails() {
   const navigate = useNavigate();
@@ -55,7 +56,6 @@ function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const user = useSelector((state) => state.user);
-
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleAddToFavorites = async () => {
@@ -96,6 +96,7 @@ function PropertyDetails() {
             id_propierty: property.id,
           }
         );
+        await sendEmail(user.email);
 
         navigate("/");
       } else {

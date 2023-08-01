@@ -5,7 +5,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import { Link, useParams } from "react-router-dom";
-import Button from '@mui/material/Button'
+import Button from "@mui/material/Button";
+import { sendEmailConfirm } from "../services/emailService";
+
 function Appointments() {
   const { id } = useParams();
   const [appointment, setAppointment] = useState([]);
@@ -126,6 +128,8 @@ function Appointments() {
           appt.id === id ? { ...appt, confirmation: true } : appt
         )
       );
+
+      await sendEmailConfirm(user.email, updatedAppointment);
     } catch (error) {
       console.error(error);
     }
@@ -168,7 +172,7 @@ function Appointments() {
                 }}
               >
                 <Box sx={{ display: "flex", height: "100%" }}>
-                <Box>
+                  <Box>
                     <CardMedia
                       component="img"
                       height="190px"
@@ -182,13 +186,16 @@ function Appointments() {
                       image={getImageUrlById(appointment.id_propierty)}
                     />
                     <Box display="flex" justifyContent="center" mt={2}>
-                 
-                      <Button variant="contained" color="success" onClick={() => handleDelete(appointment.id)}>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={() => handleDelete(appointment.id)}
+                      >
                         Finalizada
                       </Button>
                     </Box>{" "}
                   </Box>
-                  <CardContent >
+                  <CardContent>
                     <Box
                       sx={{
                         display: "grid",
@@ -293,18 +300,28 @@ function Appointments() {
                       image={getImageUrlById(appointment.id_propierty)}
                     />
                     <Box display="flex" justifyContent="center" mt={1}>
-                      <Button size="small" variant="contained" color="success"
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="success"
                         style={{ marginRight: "5px" }}
                         onClick={() => handleEdit(appointment.id)}
                       >
-                        Confirmar   
-                      </Button></Box><Box display="flex" justifyContent="center" mt={1} >
-                      <Button size="small" variant="contained" color="error"onClick={() => handleDelete(appointment.id)}>
+                        Confirmar
+                      </Button>
+                    </Box>
+                    <Box display="flex" justifyContent="center" mt={1}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="error"
+                        onClick={() => handleDelete(appointment.id)}
+                      >
                         Recharzar
                       </Button>
                     </Box>
                   </Box>
-                  <CardContent >
+                  <CardContent>
                     <Box
                       sx={{
                         display: "grid",
