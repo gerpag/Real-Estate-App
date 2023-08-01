@@ -26,11 +26,10 @@ userRouter.put(
   validateUserProfileAccess,
   userController.updateUserProfile
 );
-
+userRouter.put(
+  "/:id/profile-edit-img",
+  validateAuth,
+  validateUserProfileAccess,
+  userController.updateUserProfile
+);
 module.exports = userRouter;
-
-// router.put(‘/book/:bookId’, async(req, res) {
-//   await Book.update(
-//     {title: req.body.title},
-//     {returning: true, where: {id: req.params.bookId} }
-//   )

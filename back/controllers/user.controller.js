@@ -92,6 +92,10 @@ exports.updateUserProfile = async (req, res) => {
     const { id } = req.params;
     const profileData = req.body;
 
+    if (profileData.img_url) {
+      await userService.updateUserImage(id, profileData.img_url);
+    }
+
     const updatedProfile = await userService.updateUserProfile(id, profileData);
     res.json(updatedProfile);
   } catch (error) {
