@@ -3,10 +3,11 @@ import Box from "@mui/material/Box";
 
 import FavoritesButton from "../commons/FavoritesButton";
 import AppointmentsButton from "../commons/AppointmentsButton";
-import MoreButton from "../commons/MoreButton";
+import ReturnButton from "../commons/ReturnButton";
+import { useSelector } from "react-redux";
 
-function ButtonsProperty({ propertyId, user}) {
-  
+function ButtonDetails({  property}) {
+  const user = useSelector((state) => state.user);
 
   return (
     <>
@@ -18,15 +19,15 @@ function ButtonsProperty({ propertyId, user}) {
       >
         {user ? (
           <>
-            <FavoritesButton user={user} id={propertyId }/>
-            <AppointmentsButton propertyId={propertyId}/>
+            <FavoritesButton user={user} id={property.id }/>
+            <AppointmentsButton propertyId={property.id}/>
           </>
         ) : null}
 
-       <MoreButton propertyId={propertyId}/>
+       <ReturnButton user={user} property={property}/>
       </Box>
     </>
   );
 }
 
-export default ButtonsProperty;
+export default ButtonDetails;

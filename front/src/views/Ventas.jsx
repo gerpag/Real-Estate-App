@@ -131,7 +131,7 @@ function Ventas() {
                         {property.description}
                       </div>
 
-                      <ButtonsProperty propertyId={property.id } user={user.id}  />
+                      <ButtonsProperty propertyId={property.id } user={user} />
                     </Box>
                   </CardContent>
                 </Box>
