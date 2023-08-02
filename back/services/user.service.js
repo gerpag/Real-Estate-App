@@ -41,8 +41,6 @@ async function getUserProfile(userId) {
 
 async function updateUserProfile(userId, profileData) {
   try {
-    // Verificar tema de foto con Cloudinary
-
     await User.update(
       {
         name: profileData.name,
@@ -66,6 +64,15 @@ async function updateUserProfile(userId, profileData) {
   }
 }
 
+async function updateUserImage(userId, img_url) {
+  try {
+    await User.update({ img_url }, { returning: true, where: { id: userId } });
+  } catch (error) {
+    console.error("Error al actualizar la img_url del usuario:", error);
+    throw new Error("Error al actualizar la img_url del usuario");
+  }
+}
+
 module.exports = {
   registerUser,
   findUserByEmail,
@@ -74,4 +81,5 @@ module.exports = {
   generateToken,
   getUserProfile,
   updateUserProfile,
+  updateUserImage,
 };

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
+import setUser from "../state/user";
+
+//import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
 function MyProfile() {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({
     name: "",
@@ -19,7 +22,7 @@ function MyProfile() {
     password: "",
     img_url: "",
   });
-  console.log(userData);
+
   useEffect(() => {
     if (user) {
       axios
@@ -29,9 +32,7 @@ function MyProfile() {
         })
         .then((response) => {
           setUserData(response.data);
-          console.log(response.data);
         })
-
         .catch((error) => {
           console.error("Error al obtener los datos del usuario", error);
         });
@@ -43,22 +44,53 @@ function MyProfile() {
     setUserData({ ...userData, [name]: value });
   };
 
+  const handleImageChange = async (event) => {
+    const imageFile = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", imageFile);
+    formData.append("upload_preset", "imagesProfile");
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/diycik8dw/image/upload",
+        formData
+      );
+      console.log(response);
+
+      const imageUrl = response.data.secure_url;
+
+      setUserData({ ...userData, img_url: imageUrl });
+
+      await axios.put(
+        `http://localhost:3001/api/user/${user.id}/profile-edit-img`,
+        { img_url: imageUrl },
+        {
+          withCredentials: true,
+          credentials: "include",
+        }
+      );
+
+      dispatch(setUser({ ...user, img_url: imageUrl }));
+    } catch (error) {
+      console.error("Error al cargar la imagen en Cloudinary:", error);
+    }
+  };
   const handleSaveChanges = () => {
     if (!userData.name || !userData.lastname || !userData.email) {
       alert("Los campos Nombre, Apellido y Email son requeridos.");
       return;
     }
-    axios
-      .put(`http://localhost:3001/api/user/${user.id}/profile-edit`, userData, {
-        withCredentials: true,
-        credentials: "include",
-      })
-      .then((response) => {
-        console.log("Perfil actualizado:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error al actualizar el perfil", error);
-      });
+    //   axios
+    //     .put(`http://localhost:3001/api/user/${user.id}/profile-edit`, userData, {
+    //       withCredentials: true,
+    //       credentials: "include",
+    //     })
+    //     .then((response) => {
+    //       console.log("Perfil actualizado:", response.data);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error al actualizar el perfil", error);
+    //     });
   };
 
   return (
@@ -69,16 +101,19 @@ function MyProfile() {
           flexDirection: "column",
           alignItems: "center",
           mt: 4,
+          height: "10vh",
         }}
       >
-        <Avatar
-          sx={{ width: 100, height: 100 }}
-          alt="Foto de Perfil"
-          src={userData.img_url}
-        />
-        <Typography variant="h5" mt={2}>
-          {userData.nombre} {userData.apellido}
-        </Typography>
+        <CloudinaryContext cloudName="dmautaqnc">
+          <Image
+            publicId={userData.img_url}
+            width="100"
+            height="100"
+            crop="scale"
+          >
+            <Transformation quality="auto" fetchFormat="auto" />
+          </Image>
+        </CloudinaryContext>
       </Box>
 
       <Box
@@ -99,6 +134,7 @@ function MyProfile() {
           onChange={handleInputChange}
           margin="normal"
           variant="outlined"
+          style={{ width: "50%" }}
         />
         <TextField
           label="Apellido"
@@ -124,23 +160,14 @@ function MyProfile() {
           margin="normal"
           variant="outlined"
         />
-        <TextField
-          label="Contraseña"
-          name="password"
-          type="password"
-          value={userData.password}
-          onChange={handleInputChange}
-          margin="normal"
-          variant="outlined"
+
+        <input
+          type="file"
+          accept="image/*"
+          title="Seleccionar una imagen de perfil"
+          onChange={handleImageChange}
         />
-        <TextField
-          label="URL de Foto"
-          name="img_url"
-          value={userData.img_url}
-          onChange={handleInputChange}
-          margin="normal"
-          variant="outlined"
-        />
+
         <Button
           variant="contained"
           color="primary"
