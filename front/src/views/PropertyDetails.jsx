@@ -9,12 +9,12 @@ import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import BedIcon from "@mui/icons-material/Bed";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import { useSelector } from "react-redux";
-import ButtonDetails from "../components/ButtonsDetails";
 
 function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const user = useSelector((state) => state.user);
+
 
   useEffect(() => {
     const fetchData = async () => {
