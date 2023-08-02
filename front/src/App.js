@@ -19,10 +19,8 @@ import MyProfile from "./views/MyProfile";
 import PropertyDetails from "./views/PropertyDetails";
 import Background from "./components/BackGround";
 import Appointments from "./views/Appointment";
-
-
-
-
+import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRouteAdmin from "./components/ProtectedRouterAdmin";
 function App() {
   //const dispatch = useDispatch();
   // useEffect(() => {
@@ -36,14 +34,19 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/adminSubmit" element={<AdminSubmit />}></Route>
-        <Route path="/property" element={<Property />}></Route>
+        <Route path="/property/:id" element={<PropertyDetails />}></Route>
         <Route path="/venta" element={<Venta />}></Route>
         <Route path="/alquiler" element={<Alquiler />}></Route>
-        <Route path="/allUser" element={<AllUser />}></Route>
-        <Route path="/profile" element={<MyProfile />}></Route>
-        <Route path="/property/:id" element={<PropertyDetails />}></Route>
-        <Route path="/appointments" element={<Appointments />}></Route>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<MyProfile />}></Route>
+        </Route>
+        <Route element={<ProtectedRouteAdmin />}>
+          <Route path="/allUser" element={<AllUser />}></Route>
+          <Route path="/adminSubmit" element={<AdminSubmit />}></Route>
+          <Route path="/property" element={<Property />}></Route>
+          <Route path="/appointments" element={<Appointments />}></Route>
+        </Route>
       </Routes>
     </>
   );
