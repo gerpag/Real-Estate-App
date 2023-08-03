@@ -21,11 +21,9 @@ import Background from "./components/BackGround";
 import Appointments from "./views/Appointment";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedRouteAdmin from "./components/ProtectedRouterAdmin";
+
 function App() {
-  //const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setUser(null));
-  // }, []);
+  console.log(process.env.API_URL);
   return (
     <>
       <Navbar />

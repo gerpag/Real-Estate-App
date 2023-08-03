@@ -8,6 +8,8 @@ const propertyRouter = require("./property.route");
 const appointmentRouter = require("./appointment");
 const emailRouter = require("./email.route");
 
+const envVarrouter = require("./configVarEnv.route");
+
 router.use("/user", userRouter);
 router.use("/favorites", favoritesRouter);
 router.use("/admin", adminRouter);
@@ -15,5 +17,6 @@ router.use("/property", propertyRouter);
 router.use("/appointment", appointmentRouter);
 
 router.use("/send-mail", emailRouter);
+router.use("/config", envVarrouter);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const SECRET = "stringRandom"; // agregar Luego VAriables entorno: const {SECRET} = require("./.envs")
+const SECRET = process.env.TOKEN_SECRET;
 
 const generateToken = (payload) => {
   const token = jwt.sign({ user: payload }, SECRET, {
@@ -11,9 +12,6 @@ const generateToken = (payload) => {
 };
 const validateToken = (token) => {
   return jwt.verify(token, SECRET);
-  //const { user } = decoded;
-
-  //return user;
 };
 
 module.exports = { generateToken, validateToken };
