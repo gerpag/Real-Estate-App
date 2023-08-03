@@ -1,14 +1,18 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import { handleDeleteFavorite } from "../utils/handleDeleteFavorites";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { Link, useParams } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
 
 function FavoritesList() {
   const [favorites, setFavorites] = useState([]);
   const { userId } = useParams();
-  console.log(favorites);
+ 
 
   const data2 = async () => {
     try {
@@ -42,13 +46,18 @@ function FavoritesList() {
   if (!favorites.length) {
     return <div>No hay propiedades marcadas como favoritas.</div>;
   }
-  console.log("FAVORITES", favorites);
+  
 
   const getInfoProperty = (propertyId) => {
     const propertyFound = property.find((prop) => prop.id === propertyId);
     return propertyFound
       ? `Ubiciación: ${propertyFound.location}, Precio: ${propertyFound.price}, Dirección ${propertyFound.address} `
       : "Datos no encontrados";
+  };
+
+  const handleDelete = async (favoriteId) => {
+    
+    await handleDeleteFavorite(userId, favoriteId, setFavorites);
   };
 
   return (
@@ -60,6 +69,13 @@ function FavoritesList() {
             <h2>Propiedad</h2>
             <p> {getInfoProperty(favorite.propertyId)} </p>
             <Link to={`/property/${favorite.propertyId}`}>Ver detalles</Link>
+            <IconButton
+              edge="end"
+              aria-label="Eliminar"
+              onClick={() => handleDelete(favorite.id)}
+            >
+              <DeleteIcon />
+            </IconButton>
           </CardContent>
         </Card>
       ))}

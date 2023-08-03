@@ -79,5 +79,3 @@ class EmailServices {
 
 module.exports = EmailServices;
 
-// <p>Ubicación: ${appointmentData.location}</p>
-// <p>Dirección: ${appointmentData.address}</p>

@@ -9,9 +9,5 @@ User.hasMany(Favorites, { foreignKey: "userId" });
 Favorites.belongsTo(Property, { foreignKey: "propertyId" });
 Property.hasMany(Favorites, { foreignKey: "propertyId" });
 
-// User.hasMany(Favorites);
-// Property.hasMany(Favorites);
-// Favorites.belongsTo(User);
-// Favorites.belongsTo(Property);
 
 module.exports = { Appointments, Property, User, Favorites };

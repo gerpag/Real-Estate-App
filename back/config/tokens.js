@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET = "stringRandom"; // agregar Luego VAriables entorno: const {SECRET} = require("./.envs")
+const SECRET = "stringRandom"; 
 
 const generateToken = (payload) => {
   const token = jwt.sign({ user: payload }, SECRET, {
@@ -11,9 +11,7 @@ const generateToken = (payload) => {
 };
 const validateToken = (token) => {
   return jwt.verify(token, SECRET);
-  //const { user } = decoded;
-
-  //return user;
+  
 };
 
 module.exports = { generateToken, validateToken };

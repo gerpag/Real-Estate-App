@@ -2,7 +2,6 @@ const EmailServices = require("../services/email.service");
 
 exports.sendEmail = async (req, res) => {
   const { userEmail, appointmentData } = req.body;
-  console.log(appointmentData);
 
   try {
     const response = await EmailServices.sendEmail(userEmail);
@@ -15,7 +14,6 @@ exports.sendEmail = async (req, res) => {
 
 exports.sendEmailConfirm = async (req, res) => {
   const { userEmail, appointmentData } = req.body;
-  console.log(appointmentData);
 
   try {
     const adminResponse = await EmailServices.sendEmailConfirm(

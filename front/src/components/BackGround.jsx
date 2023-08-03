@@ -23,8 +23,7 @@ const Background = ({ children }) => {
   };
 
   const contentStyle = {
-    paddingTop: "150px", // Ajusta la distancia del contenido desde la parte superior de la página
-    // Agrega otros estilos según tus necesidades
+    paddingTop: "150px", 
   };
 
   return (

@@ -5,14 +5,7 @@ const User = require("../models/User.model");
 async function getUserFavorites(userId) {
   return Favorites.findAll({ where: { userId } });
 
-  //   return Favorites.findAll({
-  //     include: [
-  //       {
-  //         model: User,
-  //         where: { userId },
-  //       },
-  //     ],
-  //   });
+
 }
 
 async function getFavoriteWithDataById(favoriteId) {
@@ -42,13 +35,7 @@ async function addFavorite(userId, propertyId) {
   });
 }
 
-// async function addFavorite(userId, propertyId) {
-//   const user = await User.findByPk(userId);
-//   const property = await Property.findByPk(propertyId);
 
-//   await user.setProperty(property);
-//   await property.setUser(user);
-// }
 
 async function removeFavorite(favoriteId) {
   return Favorites.destroy({ where: { id: favoriteId } });

@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-//import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
+
 
 const inputImages = ({ setUserData, userData }) => {
   const handleImageChange = async (event) => {
@@ -15,10 +15,10 @@ const inputImages = ({ setUserData, userData }) => {
         formData
       );
 
-      // Obtener la URL de la imagen cargada desde la respuesta de Cloudinary
+  
       const imageUrl = response.data.secure_url;
 
-      // Actualizar la URL de la imagen en userData
+     
       setUserData({ ...userData, img_url: imageUrl });
     } catch (error) {
       console.error("Error al cargar la imagen en Cloudinary:", error);
@@ -32,4 +32,4 @@ const inputImages = ({ setUserData, userData }) => {
   );
 };
 
-//export default inputImages;
+

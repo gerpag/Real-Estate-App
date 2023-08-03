@@ -43,7 +43,7 @@ const AdminSubmit = () => {
           operation: operation,
         }
       );
-      //alert(`Propiedad ${property.data.address} creada.`);
+  
 
       toast.success(`Propiedad ${property.data.address} creada.`, {
         position: "bottom-right",
@@ -68,7 +68,7 @@ const AdminSubmit = () => {
         progress: undefined,
         theme: "light",
       });
-      //alert("Error");
+  
     }
   };
 

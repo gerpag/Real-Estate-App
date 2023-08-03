@@ -9,6 +9,6 @@ favoritesRouter.post(
   favoritesController.addFavorite
 );
 
-favoritesRouter.delete("/user/:userId/:id", favoritesController.removeFavorite);
+favoritesRouter.delete("/remove/:userId/:id", favoritesController.removeFavorite);
 
 module.exports = favoritesRouter;

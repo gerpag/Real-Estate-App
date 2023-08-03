@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import setUser from "../state/user";
 import { toast, ToastContainer } from "react-toastify";
 
-//import Typography from "@mui/material/Typography";
+
 import Container from "@mui/material/Container";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
@@ -56,7 +56,7 @@ function MyProfile() {
         "https://api.cloudinary.com/v1_1/diycik8dw/image/upload",
         formData
       );
-      console.log(response);
+      
 
       const imageUrl = response.data.secure_url;
 
@@ -95,9 +95,6 @@ function MyProfile() {
       .put(`http://localhost:3001/api/user/${user.id}/profile-edit`, userData, {
         withCredentials: true,
         credentials: "include",
-      })
-      .then((response) => {
-        console.log("Perfil actualizado:", response.data);
       })
       .catch((error) => {
         console.error("Error al actualizar el perfil", error);
