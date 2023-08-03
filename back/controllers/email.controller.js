@@ -29,3 +29,19 @@ exports.sendEmailConfirm = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
+exports.sendEmailReject = async (req, res) => {
+  const { userEmail, appointmentData } = req.body;
+
+  try {
+    const adminResponse = await EmailServices.sendEmailReject(
+      userEmail,
+      appointmentData
+    );
+
+    res.status(200).send({ adminResponse });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+};

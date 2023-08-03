@@ -6,11 +6,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import { Link, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { sendEmailConfirm } from "../services/emailService";
+import { sendEmailConfirm, sendEmailReject } from "../services/emailService";
 
 function Appointments() {
-
-
   const { id } = useParams();
   const [appointment, setAppointment] = useState([]);
   appointment.sort((a, b) => {
@@ -36,9 +34,6 @@ function Appointments() {
         "http://localhost:3001/api/appointment/searchAll"
       );
       const data = response.data;
-      console.log(response);
-      console.log(data);
-
       setAppointment(data);
     } catch (error) {
       console.error(error);
@@ -57,7 +52,7 @@ function Appointments() {
       console.error(error);
     }
   };
-  
+
   const data2 = async () => {
     try {
       const response = await axios.get(
@@ -110,6 +105,16 @@ function Appointments() {
       console.error(error);
     }
   };
+  const reject = async function (id) {
+    try {
+      const appointmentToUpdate = appointment.find((appt) => appt.id === id);
+      const appointmentData = appointmentToUpdate
+      const userEmail = getEmailById(appointmentToUpdate.id_user);
+      await sendEmailReject(userEmail,appointmentData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleEdit = async (id) => {
     try {
@@ -130,8 +135,9 @@ function Appointments() {
           appt.id === id ? { ...appt, confirmation: true } : appt
         )
       );
-      console.log()
-      await sendEmailConfirm(user.email, updatedAppointment);
+
+      const userEmail = getEmailById(appointmentToUpdate.id_user);
+      await sendEmailConfirm(userEmail, updatedAppointment);
     } catch (error) {
       console.error(error);
     }
@@ -317,7 +323,9 @@ function Appointments() {
                         size="small"
                         variant="contained"
                         color="error"
-                        onClick={() => handleDelete(appointment.id)}
+                        onClick={() => {
+                          handleDelete(appointment.id); reject(appointment.id);
+                        }}
                       >
                         Recharzar
                       </Button>
