@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import setUser from "../state/user";
+import { toast, ToastContainer } from "react-toastify";
 
 //import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -77,20 +78,30 @@ function MyProfile() {
   };
   const handleSaveChanges = () => {
     if (!userData.name || !userData.lastname || !userData.email) {
-      alert("Los campos Nombre, Apellido y Email son requeridos.");
+      toast.warn("Los campos Nombre, Apellido y Email son requeridos.", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
       return;
     }
-    //   axios
-    //     .put(`http://localhost:3001/api/user/${user.id}/profile-edit`, userData, {
-    //       withCredentials: true,
-    //       credentials: "include",
-    //     })
-    //     .then((response) => {
-    //       console.log("Perfil actualizado:", response.data);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error al actualizar el perfil", error);
-    //     });
+    axios
+      .put(`http://localhost:3001/api/user/${user.id}/profile-edit`, userData, {
+        withCredentials: true,
+        credentials: "include",
+      })
+      .then((response) => {
+        console.log("Perfil actualizado:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error al actualizar el perfil", error);
+      });
   };
 
   return (
@@ -104,6 +115,18 @@ function MyProfile() {
           height: "10vh",
         }}
       >
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <CloudinaryContext cloudName="dmautaqnc">
           <Image
             publicId={userData.img_url}

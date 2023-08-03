@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
+
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import axios from "axios";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { useNavigate } from "react-router";
 import { Grid } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 
@@ -20,7 +22,7 @@ const AdminSubmit = () => {
   const [imgsUrl, setImgsUrl] = useState("");
   const [surface, setSurface] = useState("");
   const [operation, setOperation] = useState("");
-  
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -41,10 +43,32 @@ const AdminSubmit = () => {
           operation: operation,
         }
       );
-      alert(`Property ${property.data.address} created.`);
+      //alert(`Propiedad ${property.data.address} creada.`);
+
+      toast.success(`Propiedad ${property.data.address} creada.`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
       navigate("/");
     } catch (error) {
-      alert("Error");
+      toast.error("Error", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      //alert("Error");
     }
   };
 
@@ -57,6 +81,18 @@ const AdminSubmit = () => {
         height: "80vh",
       }}
     >
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Grid container>
         <Card
           style={{

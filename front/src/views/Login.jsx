@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setUser } from "../state/user";
 
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -32,8 +35,19 @@ const Login = () => {
         }
       );
 
-      alert("Login successful");
+      toast.success("¡Inicio de sesión exitoso!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      //alert("Login successful");
       const userData = response.data;
+
       dispatch(setUser(userData));
 
       const meResponse = await axios.get("http://localhost:3001/api/user/me", {
@@ -46,7 +60,16 @@ const Login = () => {
 
       navigate("/");
     } catch (error) {
-      alert("Could not login");
+      toast.error("¡No se ha podido inciar sesión!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -59,6 +82,18 @@ const Login = () => {
         height: "80vh",
       }}
     >
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Grid container>
         <Card
           style={{
@@ -99,7 +134,12 @@ const Login = () => {
                 </Grid>
                 ¿Olvidaste tu contraseña?
                 <Grid item xs={12}>
-                  <Button sx={{}} type="submit" variant="outlined">
+                  <Button
+                    sx={{}}
+                    type="submit"
+                    variant="outlined"
+                    //onClick={login}
+                  >
                     Login
                   </Button>
                 </Grid>

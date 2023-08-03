@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+
+import axios from "axios";
+import dayjs from "dayjs";
+
+import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import dayjs from "dayjs";
 
 function AppointmentsButton({ propertyId }) {
   const hora = [
@@ -63,11 +66,32 @@ function AppointmentsButton({ propertyId }) {
             id_propierty: propertyN,
           }
         );
-        alert("Cita programada");
+
+        toast.success("Cita programada", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
         handleClose();
       } else {
-        alert(
-          "Por favor, selecciona una hora y un día antes de agendar la cita."
+        toast.warn(
+          "Por favor, selecciona una hora y un día antes de agendar la cita.",
+          {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
         );
       }
     } catch (error) {
@@ -77,26 +101,23 @@ function AppointmentsButton({ propertyId }) {
 
   return (
     <>
-      
-     
-      
-        {user ? (
-          <>
-            <Button
-              variant="contained"
-              style={{
-                border: "1px solid red",
-               
-                backgroundColor: "red",
-              }}
-              type="submit"
-              onClick={() => handleClickOpen()}
-            >
-              Cita
-            </Button>
-          </>
-        ) : null}
-      
+      {user ? (
+        <>
+          <Button
+            variant="contained"
+            style={{
+              border: "1px solid red",
+
+              backgroundColor: "red",
+            }}
+            type="submit"
+            onClick={() => handleClickOpen()}
+          >
+            Cita
+          </Button>
+        </>
+      ) : null}
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Agendar Cita</DialogTitle>
         {
@@ -128,6 +149,18 @@ function AppointmentsButton({ propertyId }) {
           <Button onClick={submitAppointment}>Agendar Cita</Button>
         </DialogActions>
       </Dialog>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }

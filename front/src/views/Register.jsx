@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
 import { Grid } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -23,10 +24,32 @@ const Register = () => {
         email: email,
         password: password,
       });
-      alert(`User ${user.data.name} ${user.data.lastname} create.`);
+      //alert(`User ${user.data.name} ${user.data.lastname} create.`);
+
+      toast.success(`User ${user.data.name} ${user.data.lastname} create.`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
       navigate("/login");
     } catch (error) {
-      alert("User allready exist");
+      //alert("User allready exist");
+      toast.error("El usuario ya existe", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
@@ -91,12 +114,17 @@ const Register = () => {
                     value={email}
                     variant="standard"
                     inputProps={{
-                      pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$",
+                      pattern:
+                        "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$",
                       title: "Ingresa un correo electrónico válido",
                     }}
-                    error={email && !/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)}
+                    error={
+                      email &&
+                      !/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)
+                    }
                     helperText={
-                      email && !/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)
+                      email &&
+                      !/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)
                         ? "Ingresa un correo electrónico válido"
                         : ""
                     }
@@ -114,7 +142,7 @@ const Register = () => {
                     id="password"
                     autoComplete="current-password"
                     onChange={(e) => setPassword(e.target.value)}
-                    value={password}                   
+                    value={password}
                     variant="standard"
                   />
                 </Grid>
@@ -138,6 +166,18 @@ const Register = () => {
           </CardContent>
         </Card>
       </Grid>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
