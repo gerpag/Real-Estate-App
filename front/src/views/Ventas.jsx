@@ -130,7 +130,7 @@ function Ventas() {
                       <div style={{ border: "1px solid blue", height: "100%" }}>
                         {property.description}
                       </div>
-
+                        
                       <ButtonsProperty propertyId={property.id } user={user} />
                     </Box>
                   </CardContent>

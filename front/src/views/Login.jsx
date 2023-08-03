@@ -45,7 +45,7 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
-      //alert("Login successful");
+      
       const userData = response.data;
 
       dispatch(setUser(userData));
@@ -57,8 +57,9 @@ const Login = () => {
 
       const meData = meResponse.data;
       dispatch(setUser(meData));
-
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } catch (error) {
       toast.error("¡No se ha podido inciar sesión!", {
         position: "bottom-right",

@@ -1,22 +1,22 @@
 const appointmentService = require("../services/appointment.service");
-// const EmailService = require("../services/email.service");
-// const nodemailer = require("nodemailer");
+ const EmailService = require("../services/email.service");
+ const nodemailer = require("nodemailer");
 
 exports.submitAppointment = async (req, res) => {
   try {
     const { id_user, date, hour, id_propierty, confirmation } = req.body;
-    // const userEmail = { email };
-    // console.log(userEmail);
+     const userEmail = { email };
+     console.log(userEmail);
     const appointment = await appointmentService.submitAppointment(
       id_user,
       date,
       hour,
       id_propierty,
-      confirmation
-      //userEmail
+      confirmation,
+      userEmail
     );
 
-    //const response = await EmailService.sendEmail(userEmail);
+    const response = await EmailService.sendEmail(userEmail);
 
     res.status(201).json(appointment);
   } catch (error) {

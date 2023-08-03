@@ -24,9 +24,7 @@ const Register = () => {
         email: email,
         password: password,
       });
-      //alert(`User ${user.data.name} ${user.data.lastname} create.`);
-
-      toast.success(`User ${user.data.name} ${user.data.lastname} create.`, {
+      toast.success(`Usuario ${user.data.name} ${user.data.lastname} creado.`, {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -36,10 +34,14 @@ const Register = () => {
         progress: undefined,
         theme: "light",
       });
-
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+      setName("Cuenta Creada")
+      setLastname("Cuenta Creada")
+      setEmail("Cuenta Creada")
+      setPassword("Cuenta Creada")
     } catch (error) {
-      //alert("User allready exist");
       toast.error("El usuario ya existe", {
         position: "bottom-right",
         autoClose: 5000,

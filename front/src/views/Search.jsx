@@ -65,7 +65,7 @@ function Search() {
           return prop.category === propertyType;
         })
       : [];
-  console.log(propertyType)
+ 
     setFilteredProperties(filteredProps);
   };
   

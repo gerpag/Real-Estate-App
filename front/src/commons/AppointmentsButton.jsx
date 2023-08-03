@@ -101,8 +101,7 @@ function AppointmentsButton({ propertyId }) {
 
   return (
     <>
-      {user ? (
-        <>
+      
           <Button
             variant="contained"
             style={{
@@ -115,8 +114,7 @@ function AppointmentsButton({ propertyId }) {
           >
             Cita
           </Button>
-        </>
-      ) : null}
+        
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Agendar Cita</DialogTitle>

@@ -22,7 +22,6 @@ function ButtonsProperty({ propertyId, user}) {
             <AppointmentsButton propertyId={propertyId}/>
           </>
         ) : null}
-
        <MoreButton propertyId={propertyId}/>
       </Box>
     </>

@@ -1,16 +1,11 @@
 import "./App.css";
 import React from "react";
 import { Route, Routes } from "react-router";
-//import { useEffect } from "react";
 import Home from "./views/Home";
 import Navbar from "./components/Navbar";
 import Login from "./views/Login";
 import Register from "./views/Register";
-
 import AdminSubmit from "./views/AdminSubmit";
-
-// import { useDispatch } from "react-redux";
-// import { setUser } from "../src/state/user";
 import Property from "./views/Property";
 import Venta from "./views/Ventas";
 import Alquiler from "./views/Alquiler";
@@ -21,11 +16,10 @@ import Background from "./components/BackGround";
 import Appointments from "./views/Appointment";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedRouteAdmin from "./components/ProtectedRouterAdmin";
+import FavoritesList from "./views/FavoritesList";
+import Search from "./views/Search"
 function App() {
-  //const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(setUser(null));
-  // }, []);
+  
   return (
     <>
       <Navbar />
@@ -37,9 +31,11 @@ function App() {
         <Route path="/property/:id" element={<PropertyDetails />}></Route>
         <Route path="/venta" element={<Venta />}></Route>
         <Route path="/alquiler" element={<Alquiler />}></Route>
+        <Route path="/search" element={<Search />}></Route>
 
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<MyProfile />}></Route>
+          <Route path="/favorites/:userId" element={<FavoritesList />} />
         </Route>
         <Route element={<ProtectedRouteAdmin />}>
           <Route path="/allUser" element={<AllUser />}></Route>
