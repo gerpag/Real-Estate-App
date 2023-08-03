@@ -38,7 +38,7 @@ class EmailServices {
           <p><a href="http://localhost:3000/">Hacé clic acá para volver al home</a></p>
         `,
       };
-
+      
       const info = await transporter.sendMail(mailOptions);
 
       return "Correo electrónico enviado";

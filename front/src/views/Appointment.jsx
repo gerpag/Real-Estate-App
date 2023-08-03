@@ -9,6 +9,8 @@ import Button from "@mui/material/Button";
 import { sendEmailConfirm } from "../services/emailService";
 
 function Appointments() {
+
+
   const { id } = useParams();
   const [appointment, setAppointment] = useState([]);
   appointment.sort((a, b) => {
@@ -28,7 +30,6 @@ function Appointments() {
 
   const [user, setUser] = useState([]);
   const [property, setProperty] = useState([]);
-
   const data = async () => {
     try {
       const response = await axios.get(
@@ -56,6 +57,7 @@ function Appointments() {
       console.error(error);
     }
   };
+  
   const data2 = async () => {
     try {
       const response = await axios.get(
@@ -128,7 +130,7 @@ function Appointments() {
           appt.id === id ? { ...appt, confirmation: true } : appt
         )
       );
-
+      console.log()
       await sendEmailConfirm(user.email, updatedAppointment);
     } catch (error) {
       console.error(error);

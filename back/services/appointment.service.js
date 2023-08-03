@@ -1,6 +1,4 @@
 const Appointment = require("../models/Appointment.model");
-//const EmailService = require("../services/email.service");
-//const nodemailer = require("nodemailer");
 
 async function submitAppointment(
   id_user,
@@ -17,8 +15,6 @@ async function submitAppointment(
       id_propierty,
       confirmation,
     });
-
-    //const response = await EmailService.sendEmail(userEmail);
 
     return appointment;
   } catch (error) {

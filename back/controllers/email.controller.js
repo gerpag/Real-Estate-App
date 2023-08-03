@@ -3,11 +3,10 @@ const EmailServices = require("../services/email.service");
 exports.sendEmail = async (req, res) => {
   const { userEmail, appointmentData } = req.body;
   console.log(appointmentData);
+
   try {
     const response = await EmailServices.sendEmail(userEmail);
-    res.status(200).send(response);
-
-    res.status(200).send({ response, adminResponse });
+    res.status(200).send({ response });
   } catch (error) {
     console.log(error);
     res.status(500).send(error.message);
@@ -17,6 +16,7 @@ exports.sendEmail = async (req, res) => {
 exports.sendEmailConfirm = async (req, res) => {
   const { userEmail, appointmentData } = req.body;
   console.log(appointmentData);
+
   try {
     const adminResponse = await EmailServices.sendEmailConfirm(
       userEmail,

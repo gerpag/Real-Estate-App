@@ -12,6 +12,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { sendEmail } from "../services/emailService";
 
 function AppointmentsButton({ propertyId }) {
   const hora = [
@@ -64,9 +65,10 @@ function AppointmentsButton({ propertyId }) {
             date: selectedDia,
             hour: selectedHora,
             id_propierty: propertyN,
+            email:user.email
           }
         );
-
+       
         toast.success("Cita programada", {
           position: "bottom-right",
           autoClose: 5000,
@@ -77,7 +79,7 @@ function AppointmentsButton({ propertyId }) {
           progress: undefined,
           theme: "light",
         });
-
+ await sendEmail(user.email);
         handleClose();
       } else {
         toast.warn(
